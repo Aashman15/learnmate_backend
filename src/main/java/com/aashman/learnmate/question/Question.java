@@ -15,6 +15,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column( name = "question", nullable = false)
     private String question;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -23,8 +24,10 @@ public class Question {
     private String answer;
 
     @ManyToOne
-    @JoinColumn(name = "collection_id")
+    @JoinColumn(name = "collection_id", nullable = false)
     private MyCollection collection;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
     private QuestionType type;
 }

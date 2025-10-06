@@ -2,8 +2,10 @@ package com.aashman.learnmate.question;
 
 import com.aashman.learnmate.enums.QuestionType;
 import com.aashman.learnmate.exception.BadRequestException;
+import com.aashman.learnmate.mycollection.MyCollectionRepository;
 import com.aashman.learnmate.question.dto.QuestionBaseDto;
 import com.aashman.learnmate.question.dto.QuestionCreateRequest;
+import com.aashman.learnmate.question.dto.QuestionDetailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,10 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
 
+    @Autowired
+    private MyCollectionRepository collectionRepository;
+
+    @Autowired
     private QuestionMapper questionMapper;
 
     @Override
@@ -26,6 +32,9 @@ public class QuestionServiceImpl implements QuestionService {
             throw new BadRequestException("Please provide at least one choice");
         }
 
+        // For proper error message
+        collectionRepository.findByIdOrThrow(request.getCollectionId());
+
         Question question = questionMapper.mapCreateRequestToEntity(request);
         Question savedQuestion = questionRepository.save(question);
         return questionMapper.mapEntityToBaseDto(savedQuestion);
@@ -35,5 +44,11 @@ public class QuestionServiceImpl implements QuestionService {
     public List<QuestionBaseDto> findAllByCollectionId(Long collectionId) {
         List<Question> questions = questionRepository.findAllByCollectionId(collectionId);
         return questions.stream().map(question -> questionMapper.mapEntityToBaseDto(question)).toList();
+    }
+
+    @Override
+    public QuestionDetailDto findById(Long questionId) {
+        Question question = questionRepository.findByIdOrThrow(questionId);
+        return questionMapper.mapEntityToDetailDto(question);
     }
 }

@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-public class QuestionDetailDto extends QuestionBaseDto{
+public class QuestionDetailDto extends QuestionBaseDto {
     private Set<Choice> choices;
     private String answer;
     private MyCollection collection;

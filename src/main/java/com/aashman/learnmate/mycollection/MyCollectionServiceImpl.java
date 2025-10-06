@@ -15,6 +15,7 @@ public class MyCollectionServiceImpl implements MyCollectionService {
     @Autowired
     private MyCollectionRepository collectionRepository;
 
+    @Autowired
     private MyCollectionMapper collectionMapper;
 
     @Override
