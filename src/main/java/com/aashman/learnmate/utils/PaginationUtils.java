@@ -1,0 +1,27 @@
+package com.aashman.learnmate.utils;
+
+import com.aashman.learnmate.dto.MyPageRequest;
+import com.aashman.learnmate.dto.PaginatedResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
+public class PaginationUtils {
+   public static PageRequest getPageRequest(MyPageRequest myPageRequest){
+        return PageRequest.of(myPageRequest.getPage() - 1, myPageRequest.getPageSize());
+    }
+
+    public static PageRequest getPageRequest(int page, int pageSize){
+        return PageRequest.of(page - 1,pageSize);
+    }
+
+    public static <T> PaginatedResponse<T> createPaginatedResponse (Page<T> page) {
+       PaginatedResponse<T> response = new PaginatedResponse<>();
+       response.setCurrentPage(page.getNumber() + 1);
+       response.setTotalItems(page.getTotalElements());
+       response.setTotalPages(page.getTotalPages());
+       response.setPageSize(page.getSize());
+       response.setContent(page.getContent());
+       response.setHasMore(page.hasNext());
+       return  response;
+    }
+}
