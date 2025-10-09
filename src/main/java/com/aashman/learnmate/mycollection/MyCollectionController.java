@@ -1,5 +1,6 @@
 package com.aashman.learnmate.mycollection;
 
+import com.aashman.learnmate.dto.MessageDto;
 import com.aashman.learnmate.dto.PaginatedResponse;
 import com.aashman.learnmate.mycollection.dto.*;
 import com.aashman.learnmate.question.QuestionService;
@@ -42,9 +43,9 @@ public class MyCollectionController {
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteById(@PathVariable Long id) {
+    ResponseEntity<MessageDto> deleteById(@PathVariable Long id) {
         collectionService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(new MessageDto("Collection deleted successfully"));
     }
 
     @PatchMapping("/{id}")

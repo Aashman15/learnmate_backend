@@ -4,6 +4,7 @@ import com.aashman.learnmate.dto.MyPageRequest;
 import com.aashman.learnmate.dto.PaginatedResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 public class PaginationUtils {
    public static PageRequest getPageRequest(MyPageRequest myPageRequest){
@@ -12,6 +13,10 @@ public class PaginationUtils {
 
     public static PageRequest getPageRequest(int page, int pageSize){
         return PageRequest.of(page - 1,pageSize);
+    }
+
+    public static PageRequest getPageRequest(int page, int pageSize, Sort sort){
+        return PageRequest.of(page - 1,pageSize, sort);
     }
 
     public static <T> PaginatedResponse<T> createPaginatedResponse (Page<T> page) {

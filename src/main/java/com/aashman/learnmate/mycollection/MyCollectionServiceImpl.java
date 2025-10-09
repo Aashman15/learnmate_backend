@@ -6,6 +6,7 @@ import com.aashman.learnmate.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class MyCollectionServiceImpl implements MyCollectionService {
     @Override
     public PaginatedResponse<MyCollectionBaseDto> findAll(MyCollectionSearchRequest request) {
         Specification<MyCollection> specification = MyCollectionSpecification.hasName(request.getName());
-        PageRequest pageRequest = PaginationUtils.getPageRequest(request.getPage(), request.getPageSize());
+        PageRequest pageRequest = PaginationUtils.getPageRequest(request.getPage(), request.getPageSize(), Sort.by("id").descending());
 
         Page<MyCollection> collectionPage = collectionRepository.findAll(specification, pageRequest);
         Page<MyCollectionBaseDto> dtoPage = collectionPage.map(e -> collectionMapper.convertEntityToBaseDto(e));
