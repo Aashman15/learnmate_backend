@@ -4,7 +4,6 @@ import com.aashman.learnmate.features.question.dto.*;
 import com.aashman.learnmate.features.question.enums.QuestionType;
 import com.aashman.learnmate.exception.BadRequestException;
 import com.aashman.learnmate.features.mycollection.MyCollectionRepository;
-import com.aashman.learnmate.question.dto.*;
 import com.aashman.learnmate.features.question.entity.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -5,7 +5,6 @@ import com.aashman.learnmate.features.mycollection.dto.MyCollectionBaseDto;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionCreateRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionSearchRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionUpdateRequest;
-import com.aashman.learnmate.mycollection.dto.*;
 import com.aashman.learnmate.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
