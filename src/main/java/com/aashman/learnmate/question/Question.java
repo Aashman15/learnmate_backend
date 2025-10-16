@@ -3,9 +3,11 @@ package com.aashman.learnmate.question;
 import com.aashman.learnmate.enums.QuestionType;
 import com.aashman.learnmate.model.Choice;
 import com.aashman.learnmate.mycollection.MyCollection;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "questions")
@@ -19,7 +21,7 @@ public class Question {
     private String question;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Choice> choices;
+    private Set<Choice> choices = new HashSet<>();
 
     private String answer;
 

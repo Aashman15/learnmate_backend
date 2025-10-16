@@ -5,8 +5,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class QuestionCreateRequest {
@@ -18,7 +18,7 @@ public class QuestionCreateRequest {
     private String question;
 
     @Valid
-    private Set<ChoiceCreateDto> choices = new HashSet<>();
+    private List<ChoiceCreateDto> choices = new ArrayList<>();
 
     @Min(value = 2, message = "Answer should be at least 2 characters long")
     @Max(value = 5000, message = "Answer should not be longer than 5000")

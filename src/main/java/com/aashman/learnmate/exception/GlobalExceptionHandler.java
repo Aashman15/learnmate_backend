@@ -74,9 +74,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetail> handleException(Exception exception) throws Exception {
-        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-        problem.setTitle("Internal Server Error");
-        problem.setDetail("An unexpected error occurred. Please try again later.");
-        return ResponseEntity.internalServerError().body(problem);
+        throw
+                exception;
+//        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+//        problem.setTitle("Internal Server Error");
+//        problem.setDetail("An unexpected error occurred. Please try again later.");
+//        return ResponseEntity.internalServerError().body(problem);
     }
 }

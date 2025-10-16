@@ -3,6 +3,8 @@ package com.aashman.learnmate.model;
 import com.aashman.learnmate.question.Question;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 
 @Entity(name = "choices")
@@ -16,5 +18,7 @@ public class Choice {
 
     @ManyToOne
     @JoinColumn(name = "question_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Question question;
 }

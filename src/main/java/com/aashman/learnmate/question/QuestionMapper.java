@@ -5,9 +5,7 @@ import com.aashman.learnmate.question.dto.QuestionBaseDto;
 import com.aashman.learnmate.question.dto.QuestionCreateRequest;
 import com.aashman.learnmate.question.dto.QuestionDetailDto;
 import com.aashman.learnmate.question.dto.QuestionListDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
@@ -29,5 +27,10 @@ public interface QuestionMapper {
         MyCollection collection = new MyCollection();
         collection.setId(collectionId);
         return collection;
+    }
+
+    @AfterMapping
+    default void linkChoices(@MappingTarget Question question) {
+        question.getChoices().forEach(choice -> choice.setQuestion(question));
     }
 }
