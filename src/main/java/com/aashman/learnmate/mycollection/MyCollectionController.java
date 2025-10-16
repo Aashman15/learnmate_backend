@@ -5,6 +5,8 @@ import com.aashman.learnmate.dto.PaginatedResponse;
 import com.aashman.learnmate.mycollection.dto.*;
 import com.aashman.learnmate.question.QuestionService;
 import com.aashman.learnmate.question.dto.QuestionBaseDto;
+import com.aashman.learnmate.question.dto.QuestionDetailDto;
+import com.aashman.learnmate.question.dto.QuestionListDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +30,12 @@ public class MyCollectionController {
     }
 
     @GetMapping("/{id}")
-    MyCollectionDetailDto findById(@PathVariable Long id) {
+    MyCollectionBaseDto findById(@PathVariable Long id) {
         return collectionService.findById(id);
     }
 
     @GetMapping("/{id}/questions")
-    List<QuestionBaseDto> findAllQuestionsByCollectionId(@PathVariable("id") Long collectionId) {
+    List<QuestionListDto> findAllQuestionsByCollectionId(@PathVariable("id") Long collectionId) {
         return  questionService.findAllByCollectionId(collectionId);
     }
 

@@ -12,5 +12,5 @@ public interface MyCollectionService {
 
     MyCollectionBaseDto update(Long id, MyCollectionUpdateRequest request);
 
-    MyCollectionDetailDto findById(Long id);
+    MyCollectionBaseDto findById(Long id);
 }

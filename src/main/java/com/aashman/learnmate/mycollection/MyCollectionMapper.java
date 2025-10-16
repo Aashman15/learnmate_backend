@@ -2,7 +2,6 @@ package com.aashman.learnmate.mycollection;
 
 import com.aashman.learnmate.mycollection.dto.MyCollectionBaseDto;
 import com.aashman.learnmate.mycollection.dto.MyCollectionCreateRequest;
-import com.aashman.learnmate.mycollection.dto.MyCollectionDetailDto;
 import com.aashman.learnmate.mycollection.dto.MyCollectionUpdateRequest;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
@@ -18,5 +17,4 @@ public interface MyCollectionMapper {
 
     MyCollectionBaseDto convertEntityToBaseDto(MyCollection collection);
 
-    MyCollectionDetailDto convertEntityToDetailDto(MyCollection collection);
 }

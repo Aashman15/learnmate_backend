@@ -4,6 +4,7 @@ import com.aashman.learnmate.mycollection.MyCollection;
 import com.aashman.learnmate.question.dto.QuestionBaseDto;
 import com.aashman.learnmate.question.dto.QuestionCreateRequest;
 import com.aashman.learnmate.question.dto.QuestionDetailDto;
+import com.aashman.learnmate.question.dto.QuestionListDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -16,6 +17,8 @@ public interface QuestionMapper {
     Question mapCreateRequestToEntity(QuestionCreateRequest request);
 
     QuestionDetailDto mapEntityToDetailDto(Question question);
+
+    QuestionListDto mapEntityToListDto(Question question);
 
     @Named("mapCollection")
     default MyCollection mapCollection(Long collectionId) {

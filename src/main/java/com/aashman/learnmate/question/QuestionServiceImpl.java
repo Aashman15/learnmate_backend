@@ -3,9 +3,7 @@ package com.aashman.learnmate.question;
 import com.aashman.learnmate.enums.QuestionType;
 import com.aashman.learnmate.exception.BadRequestException;
 import com.aashman.learnmate.mycollection.MyCollectionRepository;
-import com.aashman.learnmate.question.dto.QuestionBaseDto;
-import com.aashman.learnmate.question.dto.QuestionCreateRequest;
-import com.aashman.learnmate.question.dto.QuestionDetailDto;
+import com.aashman.learnmate.question.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +25,16 @@ public class QuestionServiceImpl implements QuestionService {
     public QuestionBaseDto create(QuestionCreateRequest request) {
         QuestionType questionType = request.getType();
 
-        boolean isChoiceQuestion = questionType == QuestionType.MULTIPLE_CHOICE || questionType == QuestionType.SINGLE_CHOICE;
-        if (isChoiceQuestion && request.getChoices().isEmpty()) {
-            throw new BadRequestException("Please provide at least one choice");
+        boolean isMcq = questionType == QuestionType.MULTIPLE_CHOICE;
+        boolean isScq = questionType == QuestionType.SINGLE_CHOICE;
+
+        List<ChoiceCreateDto> correctChoices = request.getChoices().stream().filter(ChoiceCreateDto::isCorrectChoice).toList();
+        if (isMcq && correctChoices.size() < 2) {
+            throw new BadRequestException("Please provide at least two choices for multiple choice question");
+        }
+
+        if (isScq && correctChoices.size() != 1) {
+            throw new BadRequestException("There should be exactly one correct choice for single choice question");
         }
 
         // For proper error message
@@ -41,9 +46,9 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<QuestionBaseDto> findAllByCollectionId(Long collectionId) {
+    public List<QuestionListDto> findAllByCollectionId(Long collectionId) {
         List<Question> questions = questionRepository.findAllByCollectionId(collectionId);
-        return questions.stream().map(question -> questionMapper.mapEntityToBaseDto(question)).toList();
+        return questions.stream().map(question -> questionMapper.mapEntityToListDto(question)).toList();
     }
 
     @Override

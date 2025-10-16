@@ -1,6 +1,7 @@
 package com.aashman.learnmate.question.dto;
 
 import com.aashman.learnmate.enums.QuestionType;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class QuestionCreateRequest {
     @Size(min = 2, max = 255, message = "Question should be 2255 characters long")
     private String question;
 
+    @Valid
     private Set<ChoiceCreateDto> choices = new HashSet<>();
 
     @Min(value = 2, message = "Answer should be at least 2 characters long")

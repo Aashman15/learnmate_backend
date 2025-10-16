@@ -51,8 +51,8 @@ public class MyCollectionServiceImpl implements MyCollectionService {
     }
 
     @Override
-    public MyCollectionDetailDto findById(Long id) {
+    public MyCollectionBaseDto findById(Long id) {
         MyCollection collection = collectionRepository.findByIdOrThrow(id);
-        return collectionMapper.convertEntityToDetailDto(collection);
+        return collectionMapper.convertEntityToBaseDto(collection);
     }
 }
