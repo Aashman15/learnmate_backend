@@ -1,10 +1,11 @@
 package com.aashman.learnmate.features.question;
 
-import com.aashman.learnmate.features.question.dto.*;
-import com.aashman.learnmate.features.question.enums.QuestionType;
 import com.aashman.learnmate.exception.BadRequestException;
+import com.aashman.learnmate.features.mycollection.MyCollection;
 import com.aashman.learnmate.features.mycollection.MyCollectionRepository;
+import com.aashman.learnmate.features.question.dto.*;
 import com.aashman.learnmate.features.question.entity.Question;
+import com.aashman.learnmate.features.question.enums.QuestionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +39,13 @@ public class QuestionServiceImpl implements QuestionService {
             throw new BadRequestException("There should be exactly one correct choice for single choice question");
         }
 
-        // For proper error message
-        collectionRepository.findByIdOrThrow(request.getCollectionId());
+        MyCollection collection = collectionRepository.findByIdOrThrow(request.getCollectionId());
 
         Question question = questionMapper.mapCreateRequestToEntity(request);
         Question savedQuestion = questionRepository.save(question);
+        collection.setQuestionCount(collection.getQuestionCount() + 1);
+        collectionRepository.save(collection);
+
         return questionMapper.mapEntityToBaseDto(savedQuestion);
     }
 

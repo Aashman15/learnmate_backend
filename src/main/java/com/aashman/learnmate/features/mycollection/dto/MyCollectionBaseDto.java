@@ -7,4 +7,6 @@ public class MyCollectionBaseDto {
     private Long id;
     private String name;
     private String description;
+    private int questionCount;
+    private long testCount;
 }

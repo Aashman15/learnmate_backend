@@ -26,6 +26,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ProblemDetail> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        ex.printStackTrace();
         ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         problem.setDetail("We couldn’t process your request because some inputs are invalid. Please correct them and try again.");
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors().stream().map(fe -> new FieldError(fe.getField(), fe.getDefaultMessage())).toList();
@@ -74,11 +75,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetail> handleException(Exception exception) throws Exception {
-        throw
-                exception;
-//        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-//        problem.setTitle("Internal Server Error");
-//        problem.setDetail("An unexpected error occurred. Please try again later.");
-//        return ResponseEntity.internalServerError().body(problem);
+        exception.printStackTrace();
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        problem.setTitle("Internal Server Error");
+        problem.setDetail("An unexpected error occurred. Please try again later.");
+        return ResponseEntity.internalServerError().body(problem);
     }
 }

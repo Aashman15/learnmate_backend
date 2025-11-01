@@ -16,6 +16,8 @@ public class MyCollection {
     private Long id;
     private String name;
     private String description;
+    private int questionCount = 0;
+    private long testCount = 0;
 
     @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Question> questions =  new HashSet<>();
