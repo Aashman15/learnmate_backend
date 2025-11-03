@@ -1,6 +1,6 @@
 package com.aashman.learnmate.features.mycollection;
 
-import com.aashman.learnmate.features.mycollection.dto.MyCollectionBaseDto;
+import com.aashman.learnmate.features.mycollection.dto.MyCollectionDto;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionCreateRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionUpdateRequest;
 import org.mapstruct.BeanMapping;
@@ -15,6 +15,6 @@ public interface MyCollectionMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void mergeUpdateRequestToEntity(MyCollectionUpdateRequest request, @MappingTarget MyCollection myCollection);
 
-    MyCollectionBaseDto convertEntityToBaseDto(MyCollection collection);
+    MyCollectionDto convertEntityToDto(MyCollection collection);
 
 }

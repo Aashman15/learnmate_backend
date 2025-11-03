@@ -2,7 +2,7 @@ package com.aashman.learnmate.features.mycollection;
 
 import com.aashman.learnmate.dto.MessageDto;
 import com.aashman.learnmate.dto.PaginatedResponse;
-import com.aashman.learnmate.features.mycollection.dto.MyCollectionBaseDto;
+import com.aashman.learnmate.features.mycollection.dto.MyCollectionDto;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionCreateRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionSearchRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionUpdateRequest;
@@ -26,12 +26,12 @@ public class MyCollectionController {
     private QuestionService questionService;
 
     @GetMapping
-    PaginatedResponse<MyCollectionBaseDto> findAll(@Valid @ModelAttribute MyCollectionSearchRequest request) {
+    PaginatedResponse<MyCollectionDto> findAll(@Valid @ModelAttribute MyCollectionSearchRequest request) {
         return collectionService.findAll(request);
     }
 
     @GetMapping("/{id}")
-    MyCollectionBaseDto findById(@PathVariable Long id) {
+    MyCollectionDto findById(@PathVariable Long id) {
         return collectionService.findById(id);
     }
 
@@ -41,7 +41,7 @@ public class MyCollectionController {
     }
 
     @PostMapping
-    MyCollectionBaseDto create(@Valid @RequestBody MyCollectionCreateRequest request) {
+    MyCollectionDto create(@Valid @RequestBody MyCollectionCreateRequest request) {
         return collectionService.create(request);
     }
 
@@ -52,7 +52,7 @@ public class MyCollectionController {
     }
 
     @PatchMapping("/{id}")
-    MyCollectionBaseDto update(@PathVariable Long id, @Valid @RequestBody MyCollectionUpdateRequest request) {
+    MyCollectionDto update(@PathVariable Long id, @Valid @RequestBody MyCollectionUpdateRequest request) {
         return collectionService.update(id, request);
     }
 

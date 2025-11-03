@@ -13,4 +13,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     default Question findByIdOrThrow(Long id) {
         return findById(id).orElseThrow(() -> new NotFoundException("Question", id));
     }
+
+    void deleteByCollectionId(Long collectionId);
 }
