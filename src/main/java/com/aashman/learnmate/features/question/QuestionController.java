@@ -1,8 +1,10 @@
 package com.aashman.learnmate.features.question;
 
+import com.aashman.learnmate.dto.MessageDto;
 import com.aashman.learnmate.features.question.dto.QuestionBaseDto;
 import com.aashman.learnmate.features.question.dto.QuestionCreateRequest;
 import com.aashman.learnmate.features.question.dto.QuestionDetailDto;
+import com.aashman.learnmate.features.question.dto.QuestionUpdateRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/questions")
-@Tag(name = "Question Api", description = "Api for creating and getting questions.")
+@Tag(name = "Question Api", description = "Create, findById, deleteById")
 public class QuestionController {
     @Autowired
     private QuestionService questionService;
@@ -25,6 +27,15 @@ public class QuestionController {
         return questionService.create(request);
     }
 
+
+    @PatchMapping("/{questionId}")
+    @Operation(
+            summary = "Update question"
+    )
+    QuestionBaseDto update(@PathVariable Long questionId, @RequestBody @Valid QuestionUpdateRequest updateRequest){
+        return  questionService.update(questionId, updateRequest);
+    }
+
     @GetMapping("/{id}")
     @Operation(
             summary = "Get question by id",
@@ -32,6 +43,15 @@ public class QuestionController {
     )
     QuestionDetailDto findById(@PathVariable Long id) {
         return questionService.findById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Delete question by id",
+            description = "Api for deleting question by its id"
+    )
+    MessageDto deleteById(@PathVariable Long id) {
+        return  questionService.deleteById(id);
     }
 
 }

@@ -7,7 +7,7 @@ import com.aashman.learnmate.features.mycollection.dto.MyCollectionCreateRequest
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionSearchRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionUpdateRequest;
 import com.aashman.learnmate.features.question.QuestionService;
-import com.aashman.learnmate.features.question.dto.QuestionListDto;
+import com.aashman.learnmate.features.question.dto.QuestionBaseDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +36,7 @@ public class MyCollectionController {
     }
 
     @GetMapping("/{id}/questions")
-    List<QuestionListDto> findAllQuestionsByCollectionId(@PathVariable("id") Long collectionId) {
+    List<QuestionBaseDto> findAllQuestionsByCollectionId(@PathVariable("id") Long collectionId) {
         return  questionService.findAllByCollectionId(collectionId);
     }
 

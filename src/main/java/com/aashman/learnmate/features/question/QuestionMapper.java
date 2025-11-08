@@ -4,7 +4,7 @@ import com.aashman.learnmate.features.mycollection.MyCollection;
 import com.aashman.learnmate.features.question.dto.QuestionBaseDto;
 import com.aashman.learnmate.features.question.dto.QuestionCreateRequest;
 import com.aashman.learnmate.features.question.dto.QuestionDetailDto;
-import com.aashman.learnmate.features.question.dto.QuestionListDto;
+import com.aashman.learnmate.features.question.dto.QuestionUpdateRequest;
 import com.aashman.learnmate.features.question.entity.Question;
 import org.mapstruct.*;
 
@@ -14,10 +14,6 @@ public interface QuestionMapper {
 
     @Mapping(target = "collection", source = "collectionId", qualifiedByName = "mapCollection")
     Question mapCreateRequestToEntity(QuestionCreateRequest request);
-
-    QuestionDetailDto mapEntityToDetailDto(Question question);
-
-    QuestionListDto mapEntityToListDto(Question question);
 
     @Named("mapCollection")
     default MyCollection mapCollection(Long collectionId) {
@@ -30,8 +26,9 @@ public interface QuestionMapper {
         return collection;
     }
 
-    @AfterMapping
-    default void linkChoices(@MappingTarget Question question) {
-        question.getChoices().forEach(choice -> choice.setQuestion(question));
-    }
+    QuestionDetailDto mapEntityToDetailDto(Question question);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void mergeUpdateRequestToEntity(QuestionUpdateRequest updateRequest, @MappingTarget Question entity);
+
 }
