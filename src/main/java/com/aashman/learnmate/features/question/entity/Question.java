@@ -11,9 +11,10 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column( name = "question", nullable = false)
+    @Column( name = "question", length = 255, nullable = false)
     private String question;
 
+    @Column(length = 5000)
     private String answer;
 
     @ManyToOne
