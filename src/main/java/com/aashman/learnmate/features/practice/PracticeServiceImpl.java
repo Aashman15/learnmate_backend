@@ -2,12 +2,11 @@ package com.aashman.learnmate.features.practice;
 
 import com.aashman.learnmate.features.mycollection.MyCollection;
 import com.aashman.learnmate.features.mycollection.MyCollectionRepository;
-import com.aashman.learnmate.features.practice.dtos.PracticeStartRequest;
-import com.aashman.learnmate.features.practice.dtos.PracticeStartResponse;
+import com.aashman.learnmate.features.practice.dtos.*;
 import com.aashman.learnmate.features.practice.entities.Practice;
-import com.aashman.learnmate.features.practice.entities.PracticeAnswer;
+import com.aashman.learnmate.features.practice.entities.PracticeItem;
 import com.aashman.learnmate.features.practice.enums.PracticeStatus;
-import com.aashman.learnmate.features.practice.repositories.PracticeAnswerRepository;
+import com.aashman.learnmate.features.practice.repositories.PracticeItemRepository;
 import com.aashman.learnmate.features.practice.repositories.PracticeRepository;
 import com.aashman.learnmate.features.question.QuestionRepository;
 import com.aashman.learnmate.features.question.entity.Question;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class PracticeServiceImpl implements PracticeService {
@@ -32,8 +30,7 @@ public class PracticeServiceImpl implements PracticeService {
     private QuestionRepository questionRepository;
 
     @Autowired
-    private PracticeAnswerRepository practiceAnswerRepository;
-
+    private PracticeItemRepository practiceItemRepository;
 
     @Override
     @Transactional
@@ -42,7 +39,6 @@ public class PracticeServiceImpl implements PracticeService {
 
 //      Add a entry in practice table with details like startTime, unique uuid and collection etc
         Practice practice = new Practice();
-        practice.setUuid(UUID.randomUUID().toString());
         practice.setStartTime(Instant.now());
         practice.setCollection(collection);
         practice.setStatus(PracticeStatus.STARTED);
@@ -54,22 +50,31 @@ public class PracticeServiceImpl implements PracticeService {
 //        for saving their snapshots for the practice session
         List<Question> questions = questionRepository.findAllByCollectionId(collection.getId());
 
-        List<PracticeAnswer> practiceAnswers = new ArrayList<>();
+        List<PracticeItem> practiceAnswers = new ArrayList<>();
 
         questions.forEach((question) -> {
 
-            PracticeAnswer practiceAnswer = new PracticeAnswer();
+            PracticeItem practiceAnswer = new PracticeItem();
             practiceAnswer.setQuestion(question.getQuestion());
             practiceAnswer.setExpectedAnswer(question.getAnswer());
             practiceAnswer.setPractice(savedPractice);
-            practiceAnswer.setSkipped(false);
 
             practiceAnswers.add(practiceAnswer);
         });
 
 //        Save all question and expected answer snapshots
-        practiceAnswerRepository.saveAll(practiceAnswers);
+        practiceItemRepository.saveAll(practiceAnswers);
 
-        return new PracticeStartResponse(savedPractice.getUuid());
+        return new PracticeStartResponse(savedPractice.getId());
+    }
+
+    @Override
+    public List<PracticeItemBaseDto> findPracticeItemsByPracticeId(Long practiceId) {
+        return List.of();
+    }
+
+    @Override
+    public PracticeSubmitResponse submitPracticeSession(Long practiceId, PracticeSubmitRequest request) {
+        return null;
     }
 }

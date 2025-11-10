@@ -16,9 +16,6 @@ public class Practice {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  Long id;
 
-    @Column(unique = true, length = 100)
-    private String uuid;
-
     @Column(nullable = false)
     private Instant startTime;
 
@@ -40,7 +37,7 @@ public class Practice {
     private PracticeStatus status;
 
     @OneToMany(cascade = {CascadeType.PERSIST}, orphanRemoval = true)
-    private List<PracticeAnswer> answers = new ArrayList<>();
+    private List<PracticeItem> answers = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(nullable = false)

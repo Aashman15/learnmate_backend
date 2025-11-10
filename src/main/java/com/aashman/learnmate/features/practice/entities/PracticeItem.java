@@ -5,22 +5,20 @@ import lombok.Data;
 
 
 @Data
-@Entity( name = "practice_answers")
-public class PracticeAnswer {
+@Entity( name = "practice_items")
+public class PracticeItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String question;
+
     @Column(length = 5000)
     private String expectedAnswer;
 
     @Column(length = 5000)
     private String givenAnswer;
-
-    @Column(nullable = false)
-    private Boolean skipped;
 
     @ManyToOne
     @JoinColumn(nullable = false)
