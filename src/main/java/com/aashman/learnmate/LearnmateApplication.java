@@ -7,8 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LearnmateApplication {
 
     public static void main(String[] args) {
-
-        System.out.println("Hello world test");
         SpringApplication.run(LearnmateApplication.class, args);
     }
 
