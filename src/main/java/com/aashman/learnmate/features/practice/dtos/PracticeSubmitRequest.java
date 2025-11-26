@@ -1,5 +1,6 @@
 package com.aashman.learnmate.features.practice.dtos;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Data
 public class PracticeSubmitRequest {
+    @Valid
     @NotEmpty(message = "Please provide at least one answer to submit")
     private List<PracticeItemAnswer> answers = new ArrayList<>();
 }

@@ -6,6 +6,8 @@ import com.aashman.learnmate.features.practice.dtos.*;
 import com.aashman.learnmate.features.practice.entities.Practice;
 import com.aashman.learnmate.features.practice.entities.PracticeItem;
 import com.aashman.learnmate.features.practice.enums.PracticeStatus;
+import com.aashman.learnmate.features.practice.mappers.PracticeItemMapper;
+import com.aashman.learnmate.features.practice.mappers.PracticeMapper;
 import com.aashman.learnmate.features.practice.repositories.PracticeItemRepository;
 import com.aashman.learnmate.features.practice.repositories.PracticeRepository;
 import com.aashman.learnmate.features.question.QuestionRepository;
@@ -31,6 +33,12 @@ public class PracticeServiceImpl implements PracticeService {
 
     @Autowired
     private PracticeItemRepository practiceItemRepository;
+
+    @Autowired
+    private PracticeItemMapper practiceItemMapper;
+
+    @Autowired
+    private PracticeMapper practiceMapper;
 
     @Override
     @Transactional
@@ -70,11 +78,36 @@ public class PracticeServiceImpl implements PracticeService {
 
     @Override
     public List<PracticeItemBaseDto> findPracticeItemsByPracticeId(Long practiceId) {
-        return List.of();
+        List<PracticeItem> items = practiceItemRepository.findByPracticeId(practiceId);
+        return items.stream().map(item -> practiceItemMapper.convertEntityToBaseDto(item)).toList();
     }
 
     @Override
+    @Transactional
     public PracticeSubmitResponse submitPracticeSession(Long practiceId, PracticeSubmitRequest request) {
-        return null;
+        Practice practice = practiceRepository.findByIdOrThrow(practiceId);
+
+        List<PracticeItemAnswer> answers = request.getAnswers();
+
+        List<Long> idsOfAnswers = answers.stream().map(PracticeItemAnswer::getPracticeItemId).toList();
+
+        List<PracticeItem> practiceItems = practiceItemRepository.findAllById(idsOfAnswers);
+
+        for (PracticeItem item : practiceItems) {
+            String givenAnswer = answers.stream().filter(answer -> answer.getPracticeItemId() == item.getId())
+                    .map(PracticeItemAnswer::getAnswer).toList().get(0);
+
+            item.setGivenAnswer(givenAnswer);
+        }
+
+        practiceItemRepository.saveAll(practiceItems);
+
+        practice.setStatus(PracticeStatus.SUBMITTED);
+        practice.setEndTime(Instant.now());
+        practice.setTotalAnsweredQuestions(answers.size());
+
+
+        Practice savedPractice = practiceRepository.save(practice);
+        return practiceMapper.mapEntityToSubmitResponse(savedPractice);
     }
 }

@@ -26,7 +26,7 @@ public class Practice {
     private  Integer totalQuestions;
 
     @Column(nullable = false)
-    private  Long totalAnsweredQuestions;
+    private  Integer totalAnsweredQuestions;
 
     private Integer aiScore;
 

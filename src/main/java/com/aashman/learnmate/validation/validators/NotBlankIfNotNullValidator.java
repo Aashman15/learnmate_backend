@@ -1,5 +1,6 @@
-package com.aashman.learnmate.validation;
+package com.aashman.learnmate.validation.validators;
 
+import com.aashman.learnmate.validation.annotations.NotBlankIfNotNull;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

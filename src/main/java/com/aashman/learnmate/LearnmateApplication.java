@@ -2,13 +2,13 @@ package com.aashman.learnmate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-//import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-//@EnableSwagger2
 public class LearnmateApplication {
 
     public static void main(String[] args) {
+
+        System.out.println("Hello world test");
         SpringApplication.run(LearnmateApplication.class, args);
     }
 

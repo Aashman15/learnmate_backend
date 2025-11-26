@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface PracticeService {
     PracticeStartResponse startPracticeSession(PracticeStartRequest request);
-    PracticeSubmitResponse submitPracticeSession(Long practiceId, PracticeSubmitRequest request);
     List<PracticeItemBaseDto> findPracticeItemsByPracticeId(Long practiceId);
+    PracticeSubmitResponse submitPracticeSession(Long practiceId, PracticeSubmitRequest request);
 }

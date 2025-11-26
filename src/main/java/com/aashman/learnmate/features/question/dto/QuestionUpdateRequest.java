@@ -1,6 +1,6 @@
 package com.aashman.learnmate.features.question.dto;
 
-import com.aashman.learnmate.validation.NotBlankIfNotNull;
+import com.aashman.learnmate.validation.annotations.NotBlankIfNotNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
