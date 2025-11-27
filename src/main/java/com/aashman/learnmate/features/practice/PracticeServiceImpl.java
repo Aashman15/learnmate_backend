@@ -89,9 +89,9 @@ public class PracticeServiceImpl implements PracticeService {
 
         List<PracticeItemAnswer> answers = request.getAnswers();
 
-        List<Long> idsOfAnswers = answers.stream().map(PracticeItemAnswer::getPracticeItemId).toList();
+        List<Long> itemIds = answers.stream().map(PracticeItemAnswer::getPracticeItemId).toList();
 
-        List<PracticeItem> practiceItems = practiceItemRepository.findAllById(idsOfAnswers);
+        List<PracticeItem> practiceItems = practiceItemRepository.findAllById(itemIds);
 
         for (PracticeItem item : practiceItems) {
             String givenAnswer = answers.stream().filter(answer -> answer.getPracticeItemId() == item.getId())

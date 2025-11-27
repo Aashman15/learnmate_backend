@@ -17,7 +17,7 @@ public class PracticeController {
     private PracticeService practiceService;
 
     @PostMapping()
-    @Operation(summary = "Start practice session")
+    @Operation(summary = "Start practice session", description = "Adds a practice entry for a requested collection, saves snapshots of questions and their answers as practice items because even when user updates questions in collection later, for practice it shouldn't be changed as it has to be the same question or answers at the time practice was taken. And it returns practice id to use later when submitting practice.")
     PracticeStartResponse startPractice(@RequestBody @Valid PracticeStartRequest request) {
         return practiceService.startPracticeSession(request);
     }
