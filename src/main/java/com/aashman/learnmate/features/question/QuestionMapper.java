@@ -8,7 +8,7 @@ import com.aashman.learnmate.features.question.dto.QuestionUpdateRequest;
 import com.aashman.learnmate.features.question.entity.Question;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface QuestionMapper {
     QuestionBaseDto mapEntityToBaseDto(Question question);
 
