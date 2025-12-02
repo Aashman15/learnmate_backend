@@ -19,13 +19,11 @@ public class Practice {
     @Column(nullable = false)
     private Instant startTime;
 
-    @Column(nullable = false)
     private  Instant endTime;
 
     @Column(nullable = false)
     private  Integer totalQuestions;
 
-    @Column(nullable = false)
     private  Integer totalAnsweredQuestions;
 
     private Integer aiScore;
