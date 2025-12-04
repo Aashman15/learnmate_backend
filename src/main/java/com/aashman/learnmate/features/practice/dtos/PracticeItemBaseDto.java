@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class PracticeItemBaseDto {
-    private long practiceItemId;
+    private Long practiceItemId;
 
     private String question;
 }

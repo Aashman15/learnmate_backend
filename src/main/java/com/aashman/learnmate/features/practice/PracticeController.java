@@ -1,6 +1,8 @@
 package com.aashman.learnmate.features.practice;
 
 import com.aashman.learnmate.features.practice.dtos.*;
+import com.aashman.learnmate.features.practice.enums.PracticeStatus;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @RequestMapping("/practices")
@@ -24,13 +28,20 @@ public class PracticeController {
 
     @GetMapping("/{practiceId}/items")
     @Operation(summary = "Get practice items")
-    List<PracticeItemBaseDto> findPracticeItemsByPracticeUniqueId(@PathVariable long practiceId) {
+    List<PracticeItemBaseDto> findPracticeItemsByPracticeUniqueId(@PathVariable Long practiceId) {
         return practiceService.findPracticeItemsByPracticeId(practiceId);
     }
 
     @PostMapping("/{practiceId}/submit")
     @Operation(summary = "Submit practice session")
-    PracticeSubmitResponse submitPractice(@PathVariable long practiceId, @RequestBody @Valid PracticeSubmitRequest request) {
+    PracticeSubmitResponse submitPractice(@PathVariable Long practiceId, @RequestBody @Valid PracticeSubmitRequest request) {
         return practiceService.submitPracticeSession(practiceId, request);
     }
+
+    @GetMapping()
+    List<PracticeBaseDto> findAllPractices() {
+        // todo impliment actual find all, 
+        return practiceService.findByStatus(PracticeStatus.SUBMITTED);
+    }
+    
 }

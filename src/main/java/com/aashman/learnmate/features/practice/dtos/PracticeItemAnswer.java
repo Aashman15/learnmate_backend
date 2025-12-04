@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class PracticeItemAnswer {
     @NotNull(message = "Id of practice item is required")
-    private  long practiceItemId;
+    private  Long practiceItemId;
 
     @NotBlank(message = "Answer is required")
     @Size(min = 2, max = 5000, message = "Answer should be between 2 to 5000 characters")

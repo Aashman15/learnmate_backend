@@ -47,7 +47,7 @@ public class MyCollectionServiceImpl implements MyCollectionService {
 
     @Override
     @Transactional
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         collectionRepository.findByIdOrThrow(id);
 
         questionRepository.deleteByCollectionId(id);
@@ -56,7 +56,7 @@ public class MyCollectionServiceImpl implements MyCollectionService {
     }
 
     @Override
-    public MyCollectionDto update(long id, MyCollectionUpdateRequest request) {
+    public MyCollectionDto update(Long id, MyCollectionUpdateRequest request) {
         MyCollection myCollection = collectionRepository.findByIdOrThrow(id);
         collectionMapper.mergeUpdateRequestToEntity(request, myCollection);
         MyCollection updatedCollection = collectionRepository.save(myCollection);
@@ -64,7 +64,7 @@ public class MyCollectionServiceImpl implements MyCollectionService {
     }
 
     @Override
-    public MyCollectionDto findById(long id) {
+    public MyCollectionDto findById(Long id) {
         MyCollection collection = collectionRepository.findByIdOrThrow(id);
         return collectionMapper.convertEntityToDto(collection);
     }

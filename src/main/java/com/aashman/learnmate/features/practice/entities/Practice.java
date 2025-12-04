@@ -14,7 +14,7 @@ import java.util.List;
 public class Practice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private  long id;
+    private  Long id;
 
     @Column(nullable = false)
     private Instant startTime;
@@ -25,10 +25,6 @@ public class Practice {
     private  Integer totalQuestions;
 
     private  Integer totalAnsweredQuestions;
-
-    private Integer aiScore;
-
-    private Integer selfScore;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public interface PracticeItemRepository extends JpaRepository<PracticeItem, Long> {
-    List<PracticeItem> findByPracticeId(long practiceId);
+    List<PracticeItem> findByPracticeId(Long practiceId);
 
-    default PracticeItem findByIdOrThrow(long id) {
+    default PracticeItem findByIdOrThrow(Long id) {
         return findById(id).orElseThrow(() -> new NotFoundException("Practice item", id));
     }
 }

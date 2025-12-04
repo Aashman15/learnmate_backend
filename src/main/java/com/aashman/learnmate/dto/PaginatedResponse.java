@@ -9,7 +9,7 @@ public class PaginatedResponse <T>{
     private List<T> content;
     private int currentPage;
     private int pageSize;
-    private long totalItems;
+    private Long totalItems;
     private int  totalPages;
     private boolean hasMore;
 }

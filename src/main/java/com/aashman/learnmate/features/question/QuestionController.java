@@ -32,7 +32,7 @@ public class QuestionController {
     @Operation(
             summary = "Update question"
     )
-    QuestionBaseDto update(@PathVariable long questionId, @RequestBody @Valid QuestionUpdateRequest updateRequest){
+    QuestionBaseDto update(@PathVariable Long questionId, @RequestBody @Valid QuestionUpdateRequest updateRequest){
         return  questionService.update(questionId, updateRequest);
     }
 
@@ -41,7 +41,7 @@ public class QuestionController {
             summary = "Get question by id",
             description = "Api for finding question details by its id"
     )
-    QuestionDetailDto findById(@PathVariable long id) {
+    QuestionDetailDto findById(@PathVariable Long id) {
         return questionService.findById(id);
     }
 
@@ -50,7 +50,7 @@ public class QuestionController {
             summary = "Delete question by id",
             description = "Api for deleting question by its id"
     )
-    MessageDto deleteById(@PathVariable long id) {
+    MessageDto deleteById(@PathVariable Long id) {
         return  questionService.deleteById(id);
     }
 

@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface QuestionService {
     QuestionBaseDto create(QuestionCreateRequest request);
-    List<QuestionBaseDto> findAllByCollectionId(long collectionId);
-    QuestionDetailDto findById(long questionId);
-    MessageDto deleteById(long questionId);
-    QuestionBaseDto update(long questionId, QuestionUpdateRequest request);
+    List<QuestionBaseDto> findAllByCollectionId(Long collectionId);
+    QuestionDetailDto findById(Long questionId);
+    MessageDto deleteById(Long questionId);
+    QuestionBaseDto update(Long questionId, QuestionUpdateRequest request);
 }

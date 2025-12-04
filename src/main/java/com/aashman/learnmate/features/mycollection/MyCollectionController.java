@@ -31,12 +31,12 @@ public class MyCollectionController {
     }
 
     @GetMapping("/{id}")
-    MyCollectionDto findById(@PathVariable long id) {
+    MyCollectionDto findById(@PathVariable Long id) {
         return collectionService.findById(id);
     }
 
     @GetMapping("/{id}/questions")
-    List<QuestionBaseDto> findAllQuestionsByCollectionId(@PathVariable("id") long collectionId) {
+    List<QuestionBaseDto> findAllQuestionsByCollectionId(@PathVariable("id") Long collectionId) {
         return  questionService.findAllByCollectionId(collectionId);
     }
 
@@ -46,13 +46,13 @@ public class MyCollectionController {
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<MessageDto> deleteById(@PathVariable long id) {
+    ResponseEntity<MessageDto> deleteById(@PathVariable Long id) {
         collectionService.deleteById(id);
         return ResponseEntity.ok(new MessageDto("Collection deleted successfully"));
     }
 
     @PatchMapping("/{id}")
-    MyCollectionDto update(@PathVariable long id, @Valid @RequestBody MyCollectionUpdateRequest request) {
+    MyCollectionDto update(@PathVariable Long id, @Valid @RequestBody MyCollectionUpdateRequest request) {
         return collectionService.update(id, request);
     }
 

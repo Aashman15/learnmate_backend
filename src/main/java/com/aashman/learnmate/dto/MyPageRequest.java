@@ -7,6 +7,6 @@ import lombok.Data;
 public class MyPageRequest {
 
     @Min(1)
-    private  Integer page = 1;
-    private  Integer pageSize = 20;
+    private  int page = 1;
+    private  int pageSize = 20;
 }

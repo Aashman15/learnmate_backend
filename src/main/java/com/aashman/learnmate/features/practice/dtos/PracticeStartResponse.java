@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PracticeStartResponse {
-    private long practiceId;
+    private Long practiceId;
 }

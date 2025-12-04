@@ -12,7 +12,9 @@ import com.aashman.learnmate.features.practice.repositories.PracticeItemReposito
 import com.aashman.learnmate.features.practice.repositories.PracticeRepository;
 import com.aashman.learnmate.features.question.QuestionRepository;
 import com.aashman.learnmate.features.question.entity.Question;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,14 +79,14 @@ public class PracticeServiceImpl implements PracticeService {
     }
 
     @Override
-    public List<PracticeItemBaseDto> findPracticeItemsByPracticeId(long practiceId) {
+    public List<PracticeItemBaseDto> findPracticeItemsByPracticeId(Long practiceId) {
         List<PracticeItem> items = practiceItemRepository.findByPracticeId(practiceId);
         return items.stream().map(item -> practiceItemMapper.convertEntityToBaseDto(item)).toList();
     }
 
     @Override
     @Transactional
-    public PracticeSubmitResponse submitPracticeSession(long practiceId, PracticeSubmitRequest request) {
+    public PracticeSubmitResponse submitPracticeSession(Long practiceId, PracticeSubmitRequest request) {
         Practice practice = practiceRepository.findByIdOrThrow(practiceId);
 
         List<PracticeItemAnswer> answers = request.getAnswers();
@@ -94,7 +96,7 @@ public class PracticeServiceImpl implements PracticeService {
         List<PracticeItem> practiceItems = practiceItemRepository.findAllById(itemIds);
 
         for (PracticeItem item : practiceItems) {
-            String givenAnswer = answers.stream().filter(answer -> answer.getPracticeItemId() == item.getId())
+            String givenAnswer = answers.stream().filter(answer -> answer.getPracticeItemId().longValue() == item.getId().longValue())
                     .map(PracticeItemAnswer::getAnswer).toList().get(0);
 
             item.setGivenAnswer(givenAnswer);
@@ -110,4 +112,12 @@ public class PracticeServiceImpl implements PracticeService {
         Practice savedPractice = practiceRepository.save(practice);
         return practiceMapper.mapEntityToSubmitResponse(savedPractice);
     }
+
+    @Override
+    public List<PracticeBaseDto> findByStatus(PracticeStatus status) {
+        List<Practice> practices = this.practiceRepository.findByStatus(status, Sort.by("endTime").descending());
+
+        return practices.stream().map(practice -> this.practiceMapper.mapEntityToBaseDto(practice)).toList();
+    }
+
 }
