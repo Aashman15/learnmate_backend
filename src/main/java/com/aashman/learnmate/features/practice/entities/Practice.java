@@ -30,7 +30,7 @@ public class Practice {
     @Column(nullable = false)
     private PracticeStatus status;
 
-    @OneToMany(cascade = {CascadeType.PERSIST}, orphanRemoval = true)
+    @OneToMany(mappedBy = "practice", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<PracticeItem> answers = new ArrayList<>();
 
     @ManyToOne

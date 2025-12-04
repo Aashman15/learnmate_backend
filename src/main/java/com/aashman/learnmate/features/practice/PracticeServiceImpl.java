@@ -1,5 +1,6 @@
 package com.aashman.learnmate.features.practice;
 
+import com.aashman.learnmate.dto.MessageDto;
 import com.aashman.learnmate.features.mycollection.MyCollection;
 import com.aashman.learnmate.features.mycollection.MyCollectionRepository;
 import com.aashman.learnmate.features.practice.dtos.*;
@@ -118,6 +119,12 @@ public class PracticeServiceImpl implements PracticeService {
         List<Practice> practices = this.practiceRepository.findByStatus(status, Sort.by("endTime").descending());
 
         return practices.stream().map(practice -> this.practiceMapper.mapEntityToBaseDto(practice)).toList();
+    }
+
+    @Override
+    public MessageDto deleteById(Long id) {
+        this.practiceRepository.deleteById(id);
+        return new MessageDto("Practice deleted successfully");
     }
 
 }

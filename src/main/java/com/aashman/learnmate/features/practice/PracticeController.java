@@ -1,5 +1,6 @@
 package com.aashman.learnmate.features.practice;
 
+import com.aashman.learnmate.dto.MessageDto;
 import com.aashman.learnmate.features.practice.dtos.*;
 import com.aashman.learnmate.features.practice.enums.PracticeStatus;
 
@@ -42,6 +43,11 @@ public class PracticeController {
     List<PracticeBaseDto> findAllPractices() {
         // todo impliment actual find all, 
         return practiceService.findByStatus(PracticeStatus.SUBMITTED);
+    }
+
+    @DeleteMapping("/{practiceId}")
+    MessageDto deleteById( @PathVariable Long practiceId) {
+        return this.practiceService.deleteById(practiceId);
     }
     
 }

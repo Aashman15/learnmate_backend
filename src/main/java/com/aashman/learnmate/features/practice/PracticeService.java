@@ -1,5 +1,6 @@
 package com.aashman.learnmate.features.practice;
 
+import com.aashman.learnmate.dto.MessageDto;
 import com.aashman.learnmate.features.practice.dtos.*;
 import com.aashman.learnmate.features.practice.enums.PracticeStatus;
 
@@ -10,4 +11,5 @@ public interface PracticeService {
     List<PracticeItemBaseDto> findPracticeItemsByPracticeId(Long practiceId);
     PracticeSubmitResponse submitPracticeSession(Long practiceId, PracticeSubmitRequest request);
     List<PracticeBaseDto> findByStatus(PracticeStatus status);
+    MessageDto deleteById(Long id);
 }
