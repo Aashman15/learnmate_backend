@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class PracticeSubmitResponse {
-    private Long practiceId;
+    private long practiceId;
     private PracticeStatus practiceStatus = PracticeStatus.SUBMITTED;
 }

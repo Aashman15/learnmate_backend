@@ -77,14 +77,14 @@ public class PracticeServiceImpl implements PracticeService {
     }
 
     @Override
-    public List<PracticeItemBaseDto> findPracticeItemsByPracticeId(Long practiceId) {
+    public List<PracticeItemBaseDto> findPracticeItemsByPracticeId(long practiceId) {
         List<PracticeItem> items = practiceItemRepository.findByPracticeId(practiceId);
         return items.stream().map(item -> practiceItemMapper.convertEntityToBaseDto(item)).toList();
     }
 
     @Override
     @Transactional
-    public PracticeSubmitResponse submitPracticeSession(Long practiceId, PracticeSubmitRequest request) {
+    public PracticeSubmitResponse submitPracticeSession(long practiceId, PracticeSubmitRequest request) {
         Practice practice = practiceRepository.findByIdOrThrow(practiceId);
 
         List<PracticeItemAnswer> answers = request.getAnswers();

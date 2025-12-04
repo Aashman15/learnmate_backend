@@ -11,9 +11,9 @@ public interface MyCollectionService {
 
     PaginatedResponse<MyCollectionDto> findAll(MyCollectionSearchRequest request);
 
-    void deleteById(Long id);
+    void deleteById(long id);
 
-    MyCollectionDto update(Long id, MyCollectionUpdateRequest request);
+    MyCollectionDto update(long id, MyCollectionUpdateRequest request);
 
-    MyCollectionDto findById(Long id);
+    MyCollectionDto findById(long id);
 }

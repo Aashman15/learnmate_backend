@@ -40,26 +40,26 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<QuestionBaseDto> findAllByCollectionId(Long collectionId) {
+    public List<QuestionBaseDto> findAllByCollectionId(long collectionId) {
         List<Question> questions = questionRepository.findAllByCollectionId(collectionId);
         return questions.stream().map(question -> questionMapper.mapEntityToBaseDto(question)).toList();
     }
 
     @Override
-    public QuestionDetailDto findById(Long questionId) {
+    public QuestionDetailDto findById(long questionId) {
         Question question = questionRepository.findByIdOrThrow(questionId);
         return questionMapper.mapEntityToDetailDto(question);
     }
 
     @Override
-    public MessageDto deleteById(Long questionId) {
+    public MessageDto deleteById(long questionId) {
         questionRepository.findByIdOrThrow(questionId);
         questionRepository.deleteById(questionId);
         return new MessageDto("Question deleted successfully");
     }
 
     @Override
-    public QuestionBaseDto update(Long questionId, QuestionUpdateRequest updateRequest) {
+    public QuestionBaseDto update(long questionId, QuestionUpdateRequest updateRequest) {
         Question question = questionRepository.findByIdOrThrow(questionId);
         questionMapper.mergeUpdateRequestToEntity(updateRequest, question);
         Question updatedQuestion = questionRepository.save(question);

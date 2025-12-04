@@ -14,7 +14,7 @@ import java.util.List;
 public class Practice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private  Long id;
+    private  long id;
 
     @Column(nullable = false)
     private Instant startTime;

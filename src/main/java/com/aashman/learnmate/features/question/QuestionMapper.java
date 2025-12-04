@@ -16,11 +16,7 @@ public interface QuestionMapper {
     Question mapCreateRequestToEntity(QuestionCreateRequest request);
 
     @Named("mapCollection")
-    default MyCollection mapCollection(Long collectionId) {
-        if (collectionId == null) {
-            return null;
-        }
-
+    default MyCollection mapCollection(long collectionId) {
         MyCollection collection = new MyCollection();
         collection.setId(collectionId);
         return collection;

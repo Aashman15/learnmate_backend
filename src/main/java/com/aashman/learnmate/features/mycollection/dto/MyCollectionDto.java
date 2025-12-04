@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class MyCollectionDto {
-    private Long id;
+    private long id;
     private String name;
     private String description;
     private int questionCount;

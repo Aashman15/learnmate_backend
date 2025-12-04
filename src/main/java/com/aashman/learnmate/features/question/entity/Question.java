@@ -9,7 +9,7 @@ import lombok.Data;
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     @Column( name = "question", length = 255, nullable = false)
     private String question;

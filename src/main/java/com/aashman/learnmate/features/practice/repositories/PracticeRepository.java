@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PracticeRepository extends JpaRepository<Practice, Long> {
-    default Practice findByIdOrThrow(Long practiceId) {
+    default Practice findByIdOrThrow(long practiceId) {
         return  this.findById(practiceId).orElseThrow(() -> new NotFoundException("Practice", practiceId));
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MyCollectionRepository extends JpaRepository<MyCollection, Long>, JpaSpecificationExecutor<MyCollection> {
-    default MyCollection findByIdOrThrow(Long id) {
+    default MyCollection findByIdOrThrow(long id) {
         return findById(id).orElseThrow(() -> new NotFoundException("Collection", id));
     }
 }

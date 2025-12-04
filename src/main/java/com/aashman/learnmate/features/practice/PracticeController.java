@@ -24,13 +24,13 @@ public class PracticeController {
 
     @GetMapping("/{practiceId}/items")
     @Operation(summary = "Get practice items")
-    List<PracticeItemBaseDto> findPracticeItemsByPracticeUniqueId(@PathVariable Long practiceId) {
+    List<PracticeItemBaseDto> findPracticeItemsByPracticeUniqueId(@PathVariable long practiceId) {
         return practiceService.findPracticeItemsByPracticeId(practiceId);
     }
 
     @PostMapping("/{practiceId}/submit")
     @Operation(summary = "Submit practice session")
-    PracticeSubmitResponse submitPractice(@PathVariable Long practiceId, @RequestBody @Valid PracticeSubmitRequest request) {
+    PracticeSubmitResponse submitPractice(@PathVariable long practiceId, @RequestBody @Valid PracticeSubmitRequest request) {
         return practiceService.submitPracticeSession(practiceId, request);
     }
 }

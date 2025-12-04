@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
-    List<Question> findAllByCollectionId(Long collectionId);
+    List<Question> findAllByCollectionId(long collectionId);
 
 
-    default Question findByIdOrThrow(Long id) {
+    default Question findByIdOrThrow(long id) {
         return findById(id).orElseThrow(() -> new NotFoundException("Question", id));
     }
 
-    void deleteByCollectionId(Long collectionId);
+    void deleteByCollectionId(long collectionId);
 }

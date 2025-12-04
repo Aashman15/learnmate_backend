@@ -9,5 +9,5 @@ public class PracticeStartRequest {
 
     @Schema(description = "A id of a collection for which practice has to be started")
     @NotNull(message = "Collection id is required to start a practice session")
-    private Long collectionId;
+    private long collectionId;
 }

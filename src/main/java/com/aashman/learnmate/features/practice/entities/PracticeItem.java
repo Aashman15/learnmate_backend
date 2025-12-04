@@ -9,7 +9,7 @@ import lombok.Data;
 public class PracticeItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     @Column(nullable = false)
     private String question;

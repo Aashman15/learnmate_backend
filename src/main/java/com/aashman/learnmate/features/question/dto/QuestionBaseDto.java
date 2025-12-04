@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class QuestionBaseDto {
-    private Long id;
+    private long id;
 
     private String question;
 
