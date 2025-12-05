@@ -49,5 +49,10 @@ public class PracticeController {
     MessageDto deleteById( @PathVariable Long practiceId) {
         return this.practiceService.deleteById(practiceId);
     }
+
+    @GetMapping("/{practiceId}")
+    PracticeDto findById( @PathVariable Long practiceId) {
+        return this.practiceService.findById(practiceId);
+    }
     
 }

@@ -127,4 +127,10 @@ public class PracticeServiceImpl implements PracticeService {
         return new MessageDto("Practice deleted successfully");
     }
 
+    @Override
+    public PracticeDto findById(Long id) {
+      Practice practice = this.practiceRepository.findByIdOrThrow(id);
+      return this.practiceMapper.mapEntityToDto(practice);
+    }
+
 }

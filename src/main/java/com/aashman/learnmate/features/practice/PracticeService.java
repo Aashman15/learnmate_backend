@@ -12,4 +12,5 @@ public interface PracticeService {
     PracticeSubmitResponse submitPracticeSession(Long practiceId, PracticeSubmitRequest request);
     List<PracticeBaseDto> findByStatus(PracticeStatus status);
     MessageDto deleteById(Long id);
+    PracticeDto findById(Long id);
 }

@@ -2,6 +2,7 @@ package com.aashman.learnmate.features.practice.mappers;
 
 
 import com.aashman.learnmate.features.practice.dtos.PracticeBaseDto;
+import com.aashman.learnmate.features.practice.dtos.PracticeDto;
 import com.aashman.learnmate.features.practice.dtos.PracticeSubmitResponse;
 import com.aashman.learnmate.features.practice.entities.Practice;
 import org.mapstruct.Mapper;
@@ -17,4 +18,6 @@ public interface PracticeMapper {
     PracticeSubmitResponse mapEntityToSubmitResponse(Practice entity);
 
     PracticeBaseDto mapEntityToBaseDto(Practice entity);
+
+    PracticeDto mapEntityToDto(Practice entity);
 }
