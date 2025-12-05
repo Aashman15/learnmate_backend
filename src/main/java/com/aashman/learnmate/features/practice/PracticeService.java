@@ -11,6 +11,7 @@ public interface PracticeService {
     List<PracticeItemBaseDto> findPracticeItemsByPracticeId(Long practiceId);
     PracticeSubmitResponse submitPracticeSession(Long practiceId, PracticeSubmitRequest request);
     List<PracticeBaseDto> findByStatus(PracticeStatus status);
+    List<PracticeBaseDto> findByCollectionIdAndStatus(Long collectionId, PracticeStatus status);
     MessageDto deleteById(Long id);
     PracticeDto findById(Long id);
 }

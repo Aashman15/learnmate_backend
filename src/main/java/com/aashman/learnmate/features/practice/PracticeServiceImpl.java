@@ -133,4 +133,10 @@ public class PracticeServiceImpl implements PracticeService {
       return this.practiceMapper.mapEntityToDto(practice);
     }
 
+    @Override
+    public List<PracticeBaseDto> findByCollectionIdAndStatus(Long collectionId, PracticeStatus status) {
+      List<Practice> practices =   this.practiceRepository.findByCollectionIdAndStatus(collectionId, status,  Sort.by("endTime").descending());
+        return practices.stream().map(practice -> this.practiceMapper.mapEntityToBaseDto(practice)).toList();
+    }
+
 }

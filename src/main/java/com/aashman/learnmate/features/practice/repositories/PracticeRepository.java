@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.aashman.learnmate.features.practice.enums.PracticeStatus;
 
 
+
 @Repository
 public interface PracticeRepository extends JpaRepository<Practice, Long> {
     default Practice findByIdOrThrow(Long practiceId) {
@@ -18,4 +19,5 @@ public interface PracticeRepository extends JpaRepository<Practice, Long> {
     }
     
     List<Practice> findByStatus(PracticeStatus status, Sort sort);
+    List<Practice> findByCollectionIdAndStatus(Long collectionId, PracticeStatus status, Sort sort);
 }

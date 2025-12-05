@@ -6,6 +6,9 @@ import com.aashman.learnmate.features.mycollection.dto.MyCollectionDto;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionCreateRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionSearchRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionUpdateRequest;
+import com.aashman.learnmate.features.practice.PracticeService;
+import com.aashman.learnmate.features.practice.dtos.PracticeBaseDto;
+import com.aashman.learnmate.features.practice.enums.PracticeStatus;
 import com.aashman.learnmate.features.question.QuestionService;
 import com.aashman.learnmate.features.question.dto.QuestionBaseDto;
 import jakarta.validation.Valid;
@@ -25,6 +28,9 @@ public class MyCollectionController {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private PracticeService practiceService;
+
     @GetMapping
     PaginatedResponse<MyCollectionDto> findAll(@Valid @ModelAttribute MyCollectionSearchRequest request) {
         return collectionService.findAll(request);
@@ -33,6 +39,11 @@ public class MyCollectionController {
     @GetMapping("/{id}")
     MyCollectionDto findById(@PathVariable Long id) {
         return collectionService.findById(id);
+    }
+
+    @GetMapping("/{collectionId}/practices")
+    List<PracticeBaseDto> findPracticesOfCollection (@PathVariable Long collectionId) {
+        return this.practiceService.findByCollectionIdAndStatus(collectionId, PracticeStatus.SUBMITTED);
     }
 
     @GetMapping("/{id}/questions")
