@@ -147,7 +147,7 @@ public class PracticeServiceImpl implements PracticeService {
     private void validatePracticeItemAnswers(Practice practice, List<PracticeItemAnswer> answers) {
         PracticeInputType inputType = practice.getInputType();
 
-        if (inputType == PracticeInputType.AUDIO) {
+        if (inputType == PracticeInputType.TEXT) {
             for (PracticeItemAnswer answer : answers) {
                 if (answer.getAnswer() == null || answer.getAnswer().trim() == "") {
                     throw new BadRequestException("Text answer is required for every provided items");
@@ -155,7 +155,7 @@ public class PracticeServiceImpl implements PracticeService {
             }
         }
 
-        if (inputType == PracticeInputType.TEXT) {
+        if (inputType == PracticeInputType.AUDIO) {
             for (PracticeItemAnswer answer : answers) {
                 if (answer.getAudioUrl() == null) {
                     throw new BadRequestException("Audio answer is required for every provided items");
