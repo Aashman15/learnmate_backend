@@ -3,9 +3,8 @@ package com.aashman.learnmate.features.practice.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 @Data
-@Entity( name = "practice_items")
+@Entity(name = "practice_items")
 public class PracticeItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +18,8 @@ public class PracticeItem {
 
     @Column(length = 5000)
     private String givenAnswer;
+
+    private String audioUrl;
 
     @ManyToOne
     @JoinColumn(nullable = false)

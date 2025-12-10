@@ -22,17 +22,16 @@ public class PracticeJobs {
     @Scheduled(fixedDelay = 300000)
     void deleteUnsubmittedPracticeThatIsOlderThanOneDay() {
         System.out.println("Clearing unsubmitted practices");
-    Specification<Practice> practiceSpecification = Specification.where(null);
+        Specification<Practice> practiceSpecification = (root, query, cb) -> {
+            Instant oneDayAgo = Instant.now().minusSeconds(24 * 60 * 60);
+            return cb.lessThan(root.get("startTime"), oneDayAgo);
 
-    practiceSpecification = practiceSpecification.and((root, query, cb) -> {
-                    Instant oneDayAgo = Instant.now().minusSeconds(24 * 60 * 60); 
-                    return cb.lessThan(root.get("startTime"), oneDayAgo);
-                    
-    });
+        };
 
-    practiceSpecification =  practiceSpecification.and((root, query, cb) -> cb.and(cb.equal(root.get("status"), PracticeStatus.STARTED)));
+        practiceSpecification = practiceSpecification
+                .and((root, query, cb) -> cb.and(cb.equal(root.get("status"), PracticeStatus.STARTED)));
 
-    List<Practice> practices =   this.practiceRepository.findAll(practiceSpecification);
-    practices.forEach(this.practiceRepository::delete);
+        List<Practice> practices = this.practiceRepository.findAll(practiceSpecification);
+        practices.forEach(this.practiceRepository::delete);
     }
 }

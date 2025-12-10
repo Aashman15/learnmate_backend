@@ -1,8 +1,9 @@
-package com.aashman.learnmate.features.practice;
+package com.aashman.learnmate.features.practice.controllers;
 
 import com.aashman.learnmate.dto.MessageDto;
 import com.aashman.learnmate.features.practice.dtos.*;
 import com.aashman.learnmate.features.practice.enums.PracticeStatus;
+import com.aashman.learnmate.features.practice.services.PracticeService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
-
 
 @RestController
 @RequestMapping("/practices")
@@ -35,24 +35,25 @@ public class PracticeController {
 
     @PostMapping("/{practiceId}/submit")
     @Operation(summary = "Submit practice session")
-    PracticeSubmitResponse submitPractice(@PathVariable Long practiceId, @RequestBody @Valid PracticeSubmitRequest request) {
+    PracticeSubmitResponse submitPractice(@PathVariable Long practiceId,
+            @RequestBody @Valid PracticeSubmitRequest request) {
         return practiceService.submitPracticeSession(practiceId, request);
     }
 
     @GetMapping()
     List<PracticeBaseDto> findAllPractices() {
-        // todo impliment actual find all, 
+        // todo impliment actual find all,
         return practiceService.findByStatus(PracticeStatus.SUBMITTED);
     }
 
     @DeleteMapping("/{practiceId}")
-    MessageDto deleteById( @PathVariable Long practiceId) {
+    MessageDto deleteById(@PathVariable Long practiceId) {
         return this.practiceService.deleteById(practiceId);
     }
 
     @GetMapping("/{practiceId}")
-    PracticeDto findById( @PathVariable Long practiceId) {
+    PracticeDto findById(@PathVariable Long practiceId) {
         return this.practiceService.findById(practiceId);
     }
-    
+
 }
