@@ -28,10 +28,6 @@ public class AudioServiceImpl implements AudioService {
             throw new BadRequestException("Please provide a audio file");
         }
 
-        if (!"audio/ogg".equals(file.getContentType())) {
-            throw new BadRequestException("Only audio/webm files are allowed");
-        }
-
         try {
             String uploadDir = System.getProperty("user.home") + audioFilesLocation;
             File dir = new File(uploadDir);

@@ -1,7 +1,5 @@
 package com.aashman.learnmate.features.practice.dtos;
 
-import org.hibernate.validator.constraints.URL;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -15,6 +13,5 @@ public class PracticeItemAnswer {
     private String answer;
 
     @Size(min = 2, max = 2000, message = "Audio should be between 2 to 2000 characters")
-    @URL(message = "Invalid audio url")
     private String audioUrl;
 }

@@ -5,6 +5,7 @@ import com.aashman.learnmate.features.mycollection.dto.MyCollectionDto;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionCreateRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionSearchRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionUpdateRequest;
+import com.aashman.learnmate.features.practice.repositories.PracticeRepository;
 import com.aashman.learnmate.features.question.QuestionRepository;
 import com.aashman.learnmate.utils.PaginationUtils;
 
@@ -28,6 +29,9 @@ public class MyCollectionServiceImpl implements MyCollectionService {
     @Autowired
     private MyCollectionMapper collectionMapper;
 
+    @Autowired
+    private PracticeRepository practiceRepository;
+
     @Override
     public MyCollectionDto create(MyCollectionCreateRequest request) {
         MyCollection unsavedCollection = collectionMapper.convertCreateRequestToEntity(request);
@@ -38,7 +42,8 @@ public class MyCollectionServiceImpl implements MyCollectionService {
     @Override
     public PaginatedResponse<MyCollectionDto> findAll(MyCollectionSearchRequest request) {
         Specification<MyCollection> specification = MyCollectionSpecification.hasName(request.getName());
-        PageRequest pageRequest = PaginationUtils.getPageRequest(request.getPage(), request.getPageSize(), Sort.by("id").descending());
+        PageRequest pageRequest = PaginationUtils.getPageRequest(request.getPage(), request.getPageSize(),
+                Sort.by("id").descending());
 
         Page<MyCollection> collectionPage = collectionRepository.findAll(specification, pageRequest);
         Page<MyCollectionDto> dtoPage = collectionPage.map(e -> collectionMapper.convertEntityToDto(e));
@@ -48,9 +53,9 @@ public class MyCollectionServiceImpl implements MyCollectionService {
     @Override
     @Transactional
     public void deleteById(Long id) {
-        collectionRepository.findByIdOrThrow(id);
-
         questionRepository.deleteByCollectionId(id);
+
+        practiceRepository.deleteByCollectionId(id);
 
         collectionRepository.deleteById(id);
     }
