@@ -8,4 +8,5 @@ public class PracticeItemDto {
     private String question;
     private String expectedAnswer;
     private String givenAnswer;
+    private String audioUrl;
 }

@@ -1,32 +1,37 @@
 package com.aashman.learnmate.features.practice.services.impl;
 
-import com.aashman.learnmate.dto.MessageDto;
-import com.aashman.learnmate.exception.BadRequestException;
-import com.aashman.learnmate.features.mycollection.MyCollection;
-import com.aashman.learnmate.features.mycollection.MyCollectionRepository;
-import com.aashman.learnmate.features.practice.dtos.*;
-import com.aashman.learnmate.features.practice.entities.Audio;
-import com.aashman.learnmate.features.practice.entities.Practice;
-import com.aashman.learnmate.features.practice.entities.PracticeItem;
-import com.aashman.learnmate.features.practice.enums.PracticeInputType;
-import com.aashman.learnmate.features.practice.enums.PracticeStatus;
-import com.aashman.learnmate.features.practice.mappers.PracticeItemMapper;
-import com.aashman.learnmate.features.practice.mappers.PracticeMapper;
-import com.aashman.learnmate.features.practice.repositories.AudioRepository;
-import com.aashman.learnmate.features.practice.repositories.PracticeItemRepository;
-import com.aashman.learnmate.features.practice.repositories.PracticeRepository;
-import com.aashman.learnmate.features.practice.services.PracticeService;
-import com.aashman.learnmate.features.question.QuestionRepository;
-import com.aashman.learnmate.features.question.entity.Question;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import com.aashman.learnmate.dto.MessageDto;
+import com.aashman.learnmate.exception.BadRequestException;
+import com.aashman.learnmate.features.mycollection.MyCollection;
+import com.aashman.learnmate.features.mycollection.MyCollectionRepository;
+import com.aashman.learnmate.features.practice.dtos.PracticeBaseDto;
+import com.aashman.learnmate.features.practice.dtos.PracticeDto;
+import com.aashman.learnmate.features.practice.dtos.PracticeItemAnswer;
+import com.aashman.learnmate.features.practice.dtos.PracticeItemBaseDto;
+import com.aashman.learnmate.features.practice.dtos.PracticeStartRequest;
+import com.aashman.learnmate.features.practice.dtos.PracticeStartResponse;
+import com.aashman.learnmate.features.practice.dtos.PracticeSubmitRequest;
+import com.aashman.learnmate.features.practice.dtos.PracticeSubmitResponse;
+import com.aashman.learnmate.features.practice.entities.Practice;
+import com.aashman.learnmate.features.practice.entities.PracticeItem;
+import com.aashman.learnmate.features.practice.enums.PracticeInputType;
+import com.aashman.learnmate.features.practice.enums.PracticeStatus;
+import com.aashman.learnmate.features.practice.mappers.PracticeItemMapper;
+import com.aashman.learnmate.features.practice.mappers.PracticeMapper;
+import com.aashman.learnmate.features.practice.repositories.PracticeItemRepository;
+import com.aashman.learnmate.features.practice.repositories.PracticeRepository;
+import com.aashman.learnmate.features.practice.services.PracticeService;
+import com.aashman.learnmate.features.question.QuestionRepository;
+import com.aashman.learnmate.features.question.entity.Question;
 
 @Service
 public class PracticeServiceImpl implements PracticeService {
@@ -47,9 +52,6 @@ public class PracticeServiceImpl implements PracticeService {
 
     @Autowired
     private PracticeMapper practiceMapper;
-
-    @Autowired
-    private AudioRepository audioRepository;
 
     @Override
     @Transactional
@@ -134,10 +136,6 @@ public class PracticeServiceImpl implements PracticeService {
                 .map(PracticeItemAnswer::getAudioUrl).toList().get(0);
 
         if (inputType == PracticeInputType.AUDIO) {
-            Audio audio = this.audioRepository.findByUrl(audioUrl);
-            audio.setIsUsed(true);
-            this.audioRepository.save(audio);
-
             item.setAudioUrl(audioUrl);
         } else {
             item.setGivenAnswer(givenAnswer);
