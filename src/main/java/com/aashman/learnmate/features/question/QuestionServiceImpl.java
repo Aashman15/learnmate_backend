@@ -1,5 +1,9 @@
 package com.aashman.learnmate.features.question;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.aashman.learnmate.dto.MessageDto;
 import com.aashman.learnmate.features.mycollection.MyCollection;
 import com.aashman.learnmate.features.mycollection.MyCollectionRepository;
@@ -8,26 +12,21 @@ import com.aashman.learnmate.features.question.dto.QuestionCreateRequest;
 import com.aashman.learnmate.features.question.dto.QuestionDetailDto;
 import com.aashman.learnmate.features.question.dto.QuestionUpdateRequest;
 import com.aashman.learnmate.features.question.entity.Question;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
-    @Autowired
-    private QuestionRepository questionRepository;
+    private final QuestionRepository questionRepository;
 
-    @Autowired
-    private MyCollectionRepository collectionRepository;
+    private final MyCollectionRepository collectionRepository;
 
-    @Autowired
-    private QuestionMapper questionMapper;
+    private final QuestionMapper questionMapper;
 
     @Override
     public QuestionBaseDto create(QuestionCreateRequest request) {
-
 
         MyCollection collection = collectionRepository.findByIdOrThrow(request.getCollectionId());
 

@@ -1,7 +1,7 @@
 package com.aashman.learnmate.exception;
 
-import com.aashman.learnmate.dto.FieldError;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.aashman.learnmate.dto.FieldError;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -28,8 +26,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ProblemDetail> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         ex.printStackTrace();
         ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
-        problem.setDetail("We couldn’t process your request because some inputs are invalid. Please correct them and try again.");
-        List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors().stream().map(fe -> new FieldError(fe.getField(), fe.getDefaultMessage())).toList();
+        problem.setDetail(
+                "We couldn’t process your request because some inputs are invalid. Please correct them and try again.");
+        List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors().stream()
+                .map(fe -> new FieldError(fe.getField(), fe.getDefaultMessage())).toList();
         problem.setProperty("fieldErrors", fieldErrors);
         return ResponseEntity.badRequest().body(problem);
     }
@@ -44,32 +44,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ProblemDetail> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
-        Throwable cause = ex.getCause();
-        if (cause instanceof InvalidFormatException ife) {
-            String field = ife.getPath().get(0).getFieldName();
-            String expectedType = ife.getTargetType().getSimpleName();
-            String invalidValue = ife.getValue().toString();
-
-            if (ife.getTargetType().isEnum()) {
-                // get all possible values
-                String allowedValues = Arrays.stream(ife.getTargetType().getEnumConstants())
-                        .map(Object::toString)
-                        .collect(Collectors.joining(", "));
-
-                problem.setDetail(
-                        String.format("Field '%s' received invalid value '%s'. Expected one of: [%s]",
-                                field, invalidValue, allowedValues)
-                );
-            } else {
-                problem.setDetail(
-                        String.format("Field '%s' received invalid value '%s'. Expected type: %s",
-                                field, invalidValue, expectedType)
-                );
-            }
-        } else {
-            problem.setDetail("Malformed JSON request or type mismatch");
-        }
-
+        problem.setDetail("Malformed JSON request or type mismatch");
         return ResponseEntity.badRequest().body(problem);
     }
 

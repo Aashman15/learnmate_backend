@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,25 +32,22 @@ import com.aashman.learnmate.features.practice.services.PracticeService;
 import com.aashman.learnmate.features.question.QuestionRepository;
 import com.aashman.learnmate.features.question.entity.Question;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class PracticeServiceImpl implements PracticeService {
-    @Autowired
-    private PracticeRepository practiceRepository;
+    private final PracticeRepository practiceRepository;
 
-    @Autowired
-    private MyCollectionRepository collectionRepository;
+    private final MyCollectionRepository collectionRepository;
 
-    @Autowired
-    private QuestionRepository questionRepository;
+    private final QuestionRepository questionRepository;
 
-    @Autowired
-    private PracticeItemRepository practiceItemRepository;
+    private final PracticeItemRepository practiceItemRepository;
 
-    @Autowired
-    private PracticeItemMapper practiceItemMapper;
+    private final PracticeItemMapper practiceItemMapper;
 
-    @Autowired
-    private PracticeMapper practiceMapper;
+    private final PracticeMapper practiceMapper;
 
     @Override
     @Transactional

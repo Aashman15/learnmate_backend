@@ -8,50 +8,39 @@ import com.aashman.learnmate.features.question.dto.QuestionUpdateRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/questions")
 @Tag(name = "Question Api", description = "Create, findById, deleteById")
+@RequiredArgsConstructor
 public class QuestionController {
-    @Autowired
-    private QuestionService questionService;
+    private final QuestionService questionService;
 
     @PostMapping
-    @Operation(
-            summary = "Create question",
-            description = "Api for creating question for a collection"
-    )
+    @Operation(summary = "Create question", description = "Api for creating question for a collection")
     QuestionBaseDto create(@RequestBody @Valid QuestionCreateRequest request) {
         return questionService.create(request);
     }
 
-
     @PatchMapping("/{questionId}")
-    @Operation(
-            summary = "Update question"
-    )
-    QuestionBaseDto update(@PathVariable Long questionId, @RequestBody @Valid QuestionUpdateRequest updateRequest){
-        return  questionService.update(questionId, updateRequest);
+    @Operation(summary = "Update question")
+    QuestionBaseDto update(@PathVariable Long questionId, @RequestBody @Valid QuestionUpdateRequest updateRequest) {
+        return questionService.update(questionId, updateRequest);
     }
 
     @GetMapping("/{id}")
-    @Operation(
-            summary = "Get question by id",
-            description = "Api for finding question details by its id"
-    )
+    @Operation(summary = "Get question by id", description = "Api for finding question details by its id")
     QuestionDetailDto findById(@PathVariable Long id) {
         return questionService.findById(id);
     }
 
     @DeleteMapping("/{id}")
-    @Operation(
-            summary = "Delete question by id",
-            description = "Api for deleting question by its id"
-    )
+    @Operation(summary = "Delete question by id", description = "Api for deleting question by its id")
     MessageDto deleteById(@PathVariable Long id) {
-        return  questionService.deleteById(id);
+        return questionService.deleteById(id);
     }
 
 }

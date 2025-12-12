@@ -8,7 +8,8 @@ import com.aashman.learnmate.features.practice.services.PracticeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 @RequestMapping("/practices")
 @Tag(name = "Practice session api")
+@RequiredArgsConstructor
 public class PracticeController {
-    @Autowired
-    private PracticeService practiceService;
+    private final PracticeService practiceService;
 
     @PostMapping()
     @Operation(summary = "Start practice session", description = "Adds a practice entry for a requested collection, saves snapshots of questions and their answers as practice items because even when user updates questions in collection later, for practice it shouldn't be changed as it has to be the same question or answers at the time practice was taken. And it returns practice id to use later when submitting practice.")

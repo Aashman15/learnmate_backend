@@ -3,7 +3,6 @@ package com.aashman.learnmate.features.practice;
 import java.time.Instant;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -12,11 +11,13 @@ import com.aashman.learnmate.features.practice.entities.Practice;
 import com.aashman.learnmate.features.practice.enums.PracticeStatus;
 import com.aashman.learnmate.features.practice.repositories.PracticeRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class PracticeJobs {
 
-    @Autowired
-    private PracticeRepository practiceRepository;
+    private final PracticeRepository practiceRepository;
 
     // After 5 minute delete
     @Scheduled(fixedDelay = 300000)

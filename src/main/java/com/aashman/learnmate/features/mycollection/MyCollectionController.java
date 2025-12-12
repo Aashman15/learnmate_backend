@@ -12,7 +12,8 @@ import com.aashman.learnmate.features.practice.services.PracticeService;
 import com.aashman.learnmate.features.question.QuestionService;
 import com.aashman.learnmate.features.question.dto.QuestionBaseDto;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,16 +21,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/collections")
+@RequiredArgsConstructor
 public class MyCollectionController {
 
-    @Autowired
-    private MyCollectionService collectionService;
+    private final MyCollectionService collectionService;
 
-    @Autowired
-    private QuestionService questionService;
+    private final QuestionService questionService;
 
-    @Autowired
-    private PracticeService practiceService;
+    private final PracticeService practiceService;
 
     @GetMapping
     PaginatedResponse<MyCollectionDto> findAll(@Valid @ModelAttribute MyCollectionSearchRequest request) {

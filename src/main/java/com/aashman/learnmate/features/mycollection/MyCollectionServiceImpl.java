@@ -9,7 +9,8 @@ import com.aashman.learnmate.features.practice.repositories.PracticeRepository;
 import com.aashman.learnmate.features.question.QuestionRepository;
 import com.aashman.learnmate.utils.PaginationUtils;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -18,19 +19,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class MyCollectionServiceImpl implements MyCollectionService {
 
-    @Autowired
-    private MyCollectionRepository collectionRepository;
+    private final MyCollectionRepository collectionRepository;
 
-    @Autowired
-    private QuestionRepository questionRepository;
+    private final QuestionRepository questionRepository;
 
-    @Autowired
-    private MyCollectionMapper collectionMapper;
+    private final MyCollectionMapper collectionMapper;
 
-    @Autowired
-    private PracticeRepository practiceRepository;
+    private final PracticeRepository practiceRepository;
 
     @Override
     public MyCollectionDto create(MyCollectionCreateRequest request) {

@@ -1,6 +1,5 @@
 package com.aashman.learnmate.features.practice.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,11 +12,13 @@ import com.aashman.learnmate.dto.MessageDto;
 import com.aashman.learnmate.features.practice.dtos.AudioUploadResponse;
 import com.aashman.learnmate.features.practice.services.AudioService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/audios")
+@RequiredArgsConstructor
 public class AudioController {
-    @Autowired
-    private AudioService audioService;
+    private final AudioService audioService;
 
     @PostMapping("/upload")
     AudioUploadResponse uploadAudio(@RequestParam("file") MultipartFile file) {
