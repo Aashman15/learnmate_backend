@@ -1,11 +1,12 @@
 package com.aashman.learnmate.features.question;
 
-import com.aashman.learnmate.features.mycollection.MyCollection;
+import com.aashman.learnmate.entities.MyCollection;
+import com.aashman.learnmate.entities.Question;
 import com.aashman.learnmate.features.question.dto.QuestionBaseDto;
 import com.aashman.learnmate.features.question.dto.QuestionCreateRequest;
 import com.aashman.learnmate.features.question.dto.QuestionDetailDto;
 import com.aashman.learnmate.features.question.dto.QuestionUpdateRequest;
-import com.aashman.learnmate.features.question.entity.Question;
+
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)

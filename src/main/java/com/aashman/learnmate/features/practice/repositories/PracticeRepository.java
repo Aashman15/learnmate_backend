@@ -1,7 +1,7 @@
 package com.aashman.learnmate.features.practice.repositories;
 
+import com.aashman.learnmate.entities.Practice;
 import com.aashman.learnmate.exception.NotFoundException;
-import com.aashman.learnmate.features.practice.entities.Practice;
 
 import java.util.List;
 

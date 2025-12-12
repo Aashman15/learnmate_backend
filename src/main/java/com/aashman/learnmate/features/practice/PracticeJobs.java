@@ -7,7 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.aashman.learnmate.features.practice.entities.Practice;
+import com.aashman.learnmate.entities.Practice;
 import com.aashman.learnmate.features.practice.enums.PracticeStatus;
 import com.aashman.learnmate.features.practice.repositories.PracticeRepository;
 

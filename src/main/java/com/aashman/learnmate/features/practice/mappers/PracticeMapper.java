@@ -1,10 +1,10 @@
 package com.aashman.learnmate.features.practice.mappers;
 
-
+import com.aashman.learnmate.entities.Practice;
 import com.aashman.learnmate.features.practice.dtos.PracticeBaseDto;
 import com.aashman.learnmate.features.practice.dtos.PracticeDto;
 import com.aashman.learnmate.features.practice.dtos.PracticeSubmitResponse;
-import com.aashman.learnmate.features.practice.entities.Practice;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

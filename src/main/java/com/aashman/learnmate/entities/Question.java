@@ -1,6 +1,5 @@
-package com.aashman.learnmate.features.question.entity;
+package com.aashman.learnmate.entities;
 
-import com.aashman.learnmate.features.mycollection.MyCollection;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,7 +10,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column( name = "question", length = 255, nullable = false)
+    @Column(name = "question", length = 255, nullable = false)
     private String question;
 
     @Column(length = 5000)

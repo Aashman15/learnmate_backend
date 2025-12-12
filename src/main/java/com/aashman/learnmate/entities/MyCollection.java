@@ -1,4 +1,4 @@
-package com.aashman.learnmate.features.mycollection;
+package com.aashman.learnmate.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;

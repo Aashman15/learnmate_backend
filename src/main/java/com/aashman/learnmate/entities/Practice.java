@@ -1,6 +1,5 @@
-package com.aashman.learnmate.features.practice.entities;
+package com.aashman.learnmate.entities;
 
-import com.aashman.learnmate.features.mycollection.MyCollection;
 import com.aashman.learnmate.features.practice.enums.PracticeInputType;
 import com.aashman.learnmate.features.practice.enums.PracticeStatus;
 import jakarta.persistence.*;

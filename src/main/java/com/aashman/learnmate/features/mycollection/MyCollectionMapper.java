@@ -1,6 +1,7 @@
 package com.aashman.learnmate.features.mycollection;
 
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionDto;
+import com.aashman.learnmate.entities.MyCollection;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionCreateRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionUpdateRequest;
 import org.mapstruct.BeanMapping;
