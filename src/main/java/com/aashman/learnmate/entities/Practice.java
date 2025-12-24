@@ -17,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import lombok.Data;
 
 @Data
@@ -34,6 +35,7 @@ public class Practice {
     private PracticeInputType inputType;
 
     @OneToMany(mappedBy = "practice", cascade = { CascadeType.REMOVE }, orphanRemoval = true)
+    @OrderBy("id DESC")
     private List<PracticeAnswer> answers = new ArrayList<>();
 
     @ManyToOne
