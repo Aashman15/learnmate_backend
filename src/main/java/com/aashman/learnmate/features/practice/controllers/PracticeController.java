@@ -17,14 +17,11 @@ import com.aashman.learnmate.features.practice.dtos.PracticeDto;
 import com.aashman.learnmate.features.practice.dtos.PracticeSearchRequest;
 import com.aashman.learnmate.features.practice.services.PracticeService;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/practices")
-@Tag(name = "Practice session api")
 @RequiredArgsConstructor
 public class PracticeController {
     private final PracticeService practiceService;
@@ -35,7 +32,6 @@ public class PracticeController {
     }
 
     @PostMapping()
-    @Operation(summary = "Create practice")
     PracticeDto create(@RequestBody @Valid PracticeCreateRequest request) {
         return practiceService.create(request);
     }

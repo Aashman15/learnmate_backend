@@ -8,7 +8,6 @@ import com.aashman.learnmate.features.question.dto.QuestionDetailDto;
 import com.aashman.learnmate.features.question.dto.QuestionSearchRequest;
 import com.aashman.learnmate.features.question.dto.QuestionUpdateRequest;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/questions")
-@Tag(name = "Question Api", description = "Create, findById, deleteById")
 @RequiredArgsConstructor
 public class QuestionController {
     private final QuestionService questionService;
