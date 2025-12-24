@@ -1,7 +1,23 @@
 package com.aashman.learnmate.features.practice.controllers;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.aashman.learnmate.dto.MessageDto;
-import com.aashman.learnmate.features.practice.dtos.*;
+import com.aashman.learnmate.features.practice.dtos.PracticeDetailDto;
+import com.aashman.learnmate.features.practice.dtos.PracticeDto;
+import com.aashman.learnmate.features.practice.dtos.PracticeItemDto;
+import com.aashman.learnmate.features.practice.dtos.PracticeStartRequest;
+import com.aashman.learnmate.features.practice.dtos.PracticeStartResponse;
+import com.aashman.learnmate.features.practice.dtos.PracticeSubmitRequest;
+import com.aashman.learnmate.features.practice.dtos.PracticeSubmitResponse;
 import com.aashman.learnmate.features.practice.enums.PracticeStatus;
 import com.aashman.learnmate.features.practice.services.PracticeService;
 
@@ -9,11 +25,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/practices")
@@ -30,7 +41,7 @@ public class PracticeController {
 
     @GetMapping("/{practiceId}/items")
     @Operation(summary = "Get practice items")
-    List<PracticeItemBaseDto> findPracticeItemsByPracticeUniqueId(@PathVariable Long practiceId) {
+    List<PracticeItemDto> findPracticeItemsByPracticeUniqueId(@PathVariable Long practiceId) {
         return practiceService.findPracticeItemsByPracticeId(practiceId);
     }
 
@@ -42,7 +53,7 @@ public class PracticeController {
     }
 
     @GetMapping()
-    List<PracticeBaseDto> findAllPractices() {
+    List<PracticeDto> findAllPractices() {
         // todo impliment actual find all,
         return practiceService.findByStatus(PracticeStatus.SUBMITTED);
     }
@@ -53,7 +64,7 @@ public class PracticeController {
     }
 
     @GetMapping("/{practiceId}")
-    PracticeDto findById(@PathVariable Long practiceId) {
+    PracticeDetailDto findById(@PathVariable Long practiceId) {
         return this.practiceService.findById(practiceId);
     }
 

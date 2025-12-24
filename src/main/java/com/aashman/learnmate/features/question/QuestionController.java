@@ -2,7 +2,7 @@ package com.aashman.learnmate.features.question;
 
 import com.aashman.learnmate.dto.MessageDto;
 import com.aashman.learnmate.dto.PaginatedResponse;
-import com.aashman.learnmate.features.question.dto.QuestionBaseDto;
+import com.aashman.learnmate.features.question.dto.QuestionDto;
 import com.aashman.learnmate.features.question.dto.QuestionCreateRequest;
 import com.aashman.learnmate.features.question.dto.QuestionDetailDto;
 import com.aashman.learnmate.features.question.dto.QuestionSearchRequest;
@@ -22,19 +22,19 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @GetMapping
-    PaginatedResponse<QuestionBaseDto> findAll(@Valid @ModelAttribute QuestionSearchRequest request) {
+    PaginatedResponse<QuestionDto> findAll(@Valid @ModelAttribute QuestionSearchRequest request) {
         return this.questionService.findAll(request);
     }
 
     @PostMapping
     @Operation(summary = "Create question", description = "Api for creating question for a collection")
-    QuestionBaseDto create(@RequestBody @Valid QuestionCreateRequest request) {
+    QuestionDto create(@RequestBody @Valid QuestionCreateRequest request) {
         return questionService.create(request);
     }
 
     @PatchMapping("/{questionId}")
     @Operation(summary = "Update question")
-    QuestionBaseDto update(@PathVariable Long questionId, @RequestBody @Valid QuestionUpdateRequest updateRequest) {
+    QuestionDto update(@PathVariable Long questionId, @RequestBody @Valid QuestionUpdateRequest updateRequest) {
         return questionService.update(questionId, updateRequest);
     }
 

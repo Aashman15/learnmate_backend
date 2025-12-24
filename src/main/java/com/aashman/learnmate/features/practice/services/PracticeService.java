@@ -15,10 +15,10 @@ import com.aashman.learnmate.entities.PracticeItem;
 import com.aashman.learnmate.entities.Question;
 import com.aashman.learnmate.exception.BadRequestException;
 import com.aashman.learnmate.features.mycollection.MyCollectionRepository;
-import com.aashman.learnmate.features.practice.dtos.PracticeBaseDto;
 import com.aashman.learnmate.features.practice.dtos.PracticeDto;
+import com.aashman.learnmate.features.practice.dtos.PracticeDetailDto;
 import com.aashman.learnmate.features.practice.dtos.PracticeItemAnswer;
-import com.aashman.learnmate.features.practice.dtos.PracticeItemBaseDto;
+import com.aashman.learnmate.features.practice.dtos.PracticeItemDto;
 import com.aashman.learnmate.features.practice.dtos.PracticeStartRequest;
 import com.aashman.learnmate.features.practice.dtos.PracticeStartResponse;
 import com.aashman.learnmate.features.practice.dtos.PracticeSubmitRequest;
@@ -86,9 +86,9 @@ public class PracticeService {
         return new PracticeStartResponse(savedPractice.getId());
     }
 
-    public List<PracticeItemBaseDto> findPracticeItemsByPracticeId(Long practiceId) {
+    public List<PracticeItemDto> findPracticeItemsByPracticeId(Long practiceId) {
         List<PracticeItem> items = practiceItemRepository.findByPracticeId(practiceId);
-        return items.stream().map(item -> practiceItemMapper.convertEntityToBaseDto(item)).toList();
+        return items.stream().map(this.practiceItemMapper::mapEntityToDto).toList();
     }
 
     @Transactional
@@ -99,7 +99,7 @@ public class PracticeService {
 
         validatePracticeItemAnswers(practice, answers);
 
-        List<Long> itemIds = answers.stream().map(PracticeItemAnswer::getPracticeItemId).toList();
+        List<Long> itemIds = answers.stream().map(PracticeItemAnswer::getId).toList();
 
         List<PracticeItem> practiceItems = practiceItemRepository.findAllById(itemIds);
 
@@ -120,11 +120,11 @@ public class PracticeService {
     private void setAnswerForPracticeItem(PracticeInputType inputType, PracticeItem item,
             List<PracticeItemAnswer> answers) {
         String givenAnswer = answers.stream()
-                .filter(answer -> answer.getPracticeItemId().longValue() == item.getId().longValue())
+                .filter(answer -> answer.getId().longValue() == item.getId().longValue())
                 .map(PracticeItemAnswer::getAnswer).toList().get(0);
 
         String audioUrl = answers.stream()
-                .filter(answer -> answer.getPracticeItemId().longValue() == item.getId().longValue())
+                .filter(answer -> answer.getId().longValue() == item.getId().longValue())
                 .map(PracticeItemAnswer::getAudioUrl).toList().get(0);
 
         if (inputType == PracticeInputType.AUDIO) {
@@ -154,10 +154,10 @@ public class PracticeService {
         }
     }
 
-    public List<PracticeBaseDto> findByStatus(PracticeStatus status) {
-        List<Practice> practices = this.practiceRepository.findByStatus(status, Sort.by("endTime").descending());
+    public List<PracticeDto> findByStatus(PracticeStatus status) {
+        List<Practice> practiceEntities = this.practiceRepository.findByStatus(status, Sort.by("endTime").descending());
 
-        return practices.stream().map(practice -> this.practiceMapper.mapEntityToBaseDto(practice)).toList();
+        return practiceEntities.stream().map(this.practiceMapper::mapEntityToDto).toList();
     }
 
     public MessageDto deleteById(Long id) {
@@ -165,15 +165,15 @@ public class PracticeService {
         return new MessageDto("Practice deleted successfully");
     }
 
-    public PracticeDto findById(Long id) {
+    public PracticeDetailDto findById(Long id) {
         Practice practice = this.practiceRepository.findByIdOrThrow(id);
-        return this.practiceMapper.mapEntityToDto(practice);
+        return this.practiceMapper.mapEntityToDetailDto(practice);
     }
 
-    public List<PracticeBaseDto> findByCollectionIdAndStatus(Long collectionId, PracticeStatus status) {
+    public List<PracticeDto> findByCollectionIdAndStatus(Long collectionId, PracticeStatus status) {
         List<Practice> practices = this.practiceRepository.findByCollectionIdAndStatus(collectionId, status,
                 Sort.by("endTime").descending());
-        return practices.stream().map(practice -> this.practiceMapper.mapEntityToBaseDto(practice)).toList();
+        return practices.stream().map(this.practiceMapper::mapEntityToDto).toList();
     }
 
 }

@@ -6,11 +6,11 @@ import com.aashman.learnmate.features.mycollection.dto.MyCollectionDto;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionCreateRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionSearchRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionUpdateRequest;
-import com.aashman.learnmate.features.practice.dtos.PracticeBaseDto;
+import com.aashman.learnmate.features.practice.dtos.PracticeDto;
 import com.aashman.learnmate.features.practice.enums.PracticeStatus;
 import com.aashman.learnmate.features.practice.services.PracticeService;
 import com.aashman.learnmate.features.question.QuestionService;
-import com.aashman.learnmate.features.question.dto.QuestionBaseDto;
+import com.aashman.learnmate.features.question.dto.QuestionDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -41,12 +41,12 @@ public class MyCollectionController {
     }
 
     @GetMapping("/{collectionId}/practices")
-    List<PracticeBaseDto> findPracticesOfCollection(@PathVariable Long collectionId) {
+    List<PracticeDto> findPracticesOfCollection(@PathVariable Long collectionId) {
         return this.practiceService.findByCollectionIdAndStatus(collectionId, PracticeStatus.SUBMITTED);
     }
 
     @GetMapping("/{id}/questions")
-    List<QuestionBaseDto> findAllQuestionsByCollectionId(@PathVariable("id") Long collectionId) {
+    List<QuestionDto> findAllQuestionsByCollectionId(@PathVariable("id") Long collectionId) {
         return questionService.findAllByCollectionId(collectionId);
     }
 

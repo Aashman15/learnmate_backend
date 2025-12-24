@@ -1,16 +1,25 @@
 package com.aashman.learnmate.features.practice.dtos;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
 
-import com.aashman.learnmate.features.mycollection.dto.MyCollectionDto;
+import com.aashman.learnmate.features.practice.enums.PracticeInputType;
+import com.aashman.learnmate.features.practice.enums.PracticeStatus;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class PracticeDto extends PracticeBaseDto {
-    private List<PracticeItemDto> answers = new ArrayList<>();
-    private MyCollectionDto collection;
+public class PracticeDto {
+    private Long id;
+
+    private Instant startTime;
+
+    private Instant endTime;
+
+    private Integer totalQuestions;
+
+    private Integer totalAnsweredQuestions;
+
+    private PracticeStatus status;
+
+    private PracticeInputType inputType;
 }

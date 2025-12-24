@@ -4,12 +4,14 @@ import com.aashman.learnmate.entities.PracticeItem;
 import com.aashman.learnmate.exception.NotFoundException;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface PracticeItemRepository extends JpaRepository<PracticeItem, Long> {
+public interface PracticeItemRepository
+        extends JpaRepository<PracticeItem, Long>, JpaSpecificationExecutor<PracticeItem> {
     List<PracticeItem> findByPracticeId(Long practiceId);
 
     default PracticeItem findByIdOrThrow(Long id) {
