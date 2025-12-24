@@ -1,21 +1,13 @@
 package com.aashman.learnmate.features.practice.mappers;
 
-import com.aashman.learnmate.entities.Practice;
-import com.aashman.learnmate.features.practice.dtos.PracticeDto;
-import com.aashman.learnmate.features.practice.dtos.PracticeDetailDto;
-import com.aashman.learnmate.features.practice.dtos.PracticeSubmitResponse;
-
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+
+import com.aashman.learnmate.entities.Practice;
+import com.aashman.learnmate.features.practice.dtos.PracticeDetailDto;
+import com.aashman.learnmate.features.practice.dtos.PracticeDto;
 
 @Mapper(componentModel = "spring")
 public interface PracticeMapper {
-    @Mappings({
-            @Mapping(source = "id", target = "practiceId"),
-            @Mapping(source = "status", target = "practiceStatus")
-    })
-    PracticeSubmitResponse mapEntityToSubmitResponse(Practice entity);
 
     PracticeDto mapEntityToDto(Practice entity);
 

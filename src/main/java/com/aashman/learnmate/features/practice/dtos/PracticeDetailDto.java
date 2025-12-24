@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionDto;
 import com.aashman.learnmate.features.practice.enums.PracticeInputType;
-import com.aashman.learnmate.features.practice.enums.PracticeStatus;
 
 import lombok.Data;
 
@@ -16,17 +15,9 @@ public class PracticeDetailDto {
 
     private Instant startTime;
 
-    private Instant endTime;
-
-    private Integer totalQuestions;
-
-    private Integer totalAnsweredQuestions;
-
-    private PracticeStatus status;
-
     private PracticeInputType inputType;
 
-    private List<PracticeItemDto> answers = new ArrayList<>();
+    private List<PracticeAnswerDto> answers = new ArrayList<>();
 
     private MyCollectionDto collection;
 }

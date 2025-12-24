@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class PracticeStartRequest {
+public class PracticeCreateRequest {
 
     @Schema(description = "A id of a collection for which practice has to be started")
     @NotNull(message = "Collection id is required to start a practice session")

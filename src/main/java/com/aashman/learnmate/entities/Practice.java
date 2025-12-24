@@ -1,16 +1,23 @@
 package com.aashman.learnmate.entities;
 
-import com.aashman.learnmate.features.practice.enums.PracticeInputType;
-import com.aashman.learnmate.features.practice.enums.PracticeStatus;
-import jakarta.persistence.*;
-import lombok.Data;
-
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import com.aashman.learnmate.features.practice.enums.PracticeInputType;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import lombok.Data;
 
 @Data
 @Entity(name = "practices")
@@ -22,27 +29,14 @@ public class Practice {
     @Column(nullable = false)
     private Instant startTime;
 
-    private Instant endTime;
-
-    @Column(nullable = false)
-    private Integer totalQuestions;
-
-    private Integer totalAnsweredQuestions;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private PracticeStatus status;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PracticeInputType inputType;
 
-    @OneToMany(mappedBy = "practice", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, orphanRemoval = true)
-    private List<PracticeItem> answers = new ArrayList<>();
+    @OneToMany(mappedBy = "practice", cascade = { CascadeType.REMOVE }, orphanRemoval = true)
+    private List<PracticeAnswer> answers = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "collection_id", nullable = false)
     private MyCollection collection;
-
 }

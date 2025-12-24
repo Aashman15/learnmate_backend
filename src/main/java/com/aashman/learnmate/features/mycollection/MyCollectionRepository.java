@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface MyCollectionRepository
         extends JpaRepository<MyCollection, Long>, JpaSpecificationExecutor<MyCollection> {
     default MyCollection findByIdOrThrow(Long id) {
-        return findById(id).orElseThrow(() -> new NotFoundException("Collection", id));
+        return findById(id).orElseThrow(() -> new NotFoundException("Collection with id " + id + " not found"));
     }
 }

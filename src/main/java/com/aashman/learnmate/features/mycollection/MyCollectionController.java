@@ -1,23 +1,30 @@
 package com.aashman.learnmate.features.mycollection;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.aashman.learnmate.dto.MessageDto;
 import com.aashman.learnmate.dto.PaginatedResponse;
-import com.aashman.learnmate.features.mycollection.dto.MyCollectionDto;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionCreateRequest;
+import com.aashman.learnmate.features.mycollection.dto.MyCollectionDto;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionSearchRequest;
 import com.aashman.learnmate.features.mycollection.dto.MyCollectionUpdateRequest;
 import com.aashman.learnmate.features.practice.dtos.PracticeDto;
-import com.aashman.learnmate.features.practice.enums.PracticeStatus;
-import com.aashman.learnmate.features.practice.services.PracticeService;
 import com.aashman.learnmate.features.question.QuestionService;
 import com.aashman.learnmate.features.question.dto.QuestionDto;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/collections")
@@ -27,8 +34,6 @@ public class MyCollectionController {
     private final MyCollectionService collectionService;
 
     private final QuestionService questionService;
-
-    private final PracticeService practiceService;
 
     @GetMapping
     PaginatedResponse<MyCollectionDto> findAll(@Valid @ModelAttribute MyCollectionSearchRequest request) {
@@ -42,7 +47,7 @@ public class MyCollectionController {
 
     @GetMapping("/{collectionId}/practices")
     List<PracticeDto> findPracticesOfCollection(@PathVariable Long collectionId) {
-        return this.practiceService.findByCollectionIdAndStatus(collectionId, PracticeStatus.SUBMITTED);
+        return null;
     }
 
     @GetMapping("/{id}/questions")
