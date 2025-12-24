@@ -2,16 +2,23 @@ package com.aashman.learnmate.features.question;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.aashman.learnmate.dto.MessageDto;
+import com.aashman.learnmate.dto.PaginatedResponse;
 import com.aashman.learnmate.entities.MyCollection;
 import com.aashman.learnmate.entities.Question;
 import com.aashman.learnmate.features.mycollection.MyCollectionRepository;
 import com.aashman.learnmate.features.question.dto.QuestionBaseDto;
 import com.aashman.learnmate.features.question.dto.QuestionCreateRequest;
 import com.aashman.learnmate.features.question.dto.QuestionDetailDto;
+import com.aashman.learnmate.features.question.dto.QuestionSearchRequest;
 import com.aashman.learnmate.features.question.dto.QuestionUpdateRequest;
+import com.aashman.learnmate.utils.PaginationUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,6 +47,18 @@ public class QuestionService {
     public List<QuestionBaseDto> findAllByCollectionId(Long collectionId) {
         List<Question> questions = questionRepository.findAllByCollectionId(collectionId);
         return questions.stream().map(question -> questionMapper.mapEntityToBaseDto(question)).toList();
+    }
+
+    public PaginatedResponse<QuestionBaseDto> findAll(QuestionSearchRequest request) {
+        Specification<Question> specification = QuestionSpecs.fromSearchRequest(request);
+
+        PageRequest pageRequest = PaginationUtils.getPageRequest(request.getPage(), request.getPageSize(),
+                Sort.by("id").descending());
+
+        Page<Question> questionEntitiesPage = questionRepository.findAll(specification, pageRequest);
+        Page<QuestionBaseDto> questionDtosPage = questionEntitiesPage.map(this.questionMapper::mapEntityToBaseDto);
+
+        return PaginationUtils.createPaginatedResponse(questionDtosPage);
     }
 
     public QuestionDetailDto findById(Long questionId) {
