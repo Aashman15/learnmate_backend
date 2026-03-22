@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:14.22-trixie
+    container_name: learnmate_db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: learnmate
+    ports:
+      - "5431:5432"
+
+  learnmate_backend:
+    build:
+      context: .
+    container_name: learnmate_backend
+    environment:
+      PG_URL: jdbc:postgresql://postgres:5432/learnmate
+      PG_USER: user
+      PG_PASSWORD: password
+      UPLOAD_DIR: ./uploads
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres

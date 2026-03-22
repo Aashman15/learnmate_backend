@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: learnmate
+  profiles:
+    active: local
