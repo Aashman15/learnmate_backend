@@ -3,3 +3,6 @@ spring:
     name: learnmate
   profiles:
     active: local
+
+server:
+  port: 8081

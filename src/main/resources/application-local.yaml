@@ -3,6 +3,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/learnmate
     username: postgres
     password: password
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri:  http://localhost:8080/realms/learnmate
 
   jpa:
     hibernate:
@@ -29,3 +34,9 @@ jwt:
 file:
   audios:
     upload-dir: /documents/learnmate/audios/
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.web: DEBUG
